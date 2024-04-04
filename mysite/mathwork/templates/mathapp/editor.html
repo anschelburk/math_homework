@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Editor</title>
+    <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+</head>
+<body>
+
+<div id="mathfield"></div>
+
+<script>
+    let mathfield = MathLive.makeMathField('mathfield', {
+        virtualKeyboardMode: 'manual',
+        onContentDidChange: mathField => {
+            // Example: Get the LaTeX representation of the math field's content
+            const latex = mathField.getValue();
+            console.log(latex); // You can replace this with code to save the latex to your database
+        },
+    });
+</script>
+
+</body>
+</html>
