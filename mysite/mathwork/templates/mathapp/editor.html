@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Editor</title>
+    <script defer src="//unpkg.com/mathlive"></script>
+
+</head>
+<body>
+
+  <math-field id="mathfield"></math-field>
+
+  <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const mathFieldElement = document.getElementById('mathfield');
+          mathFieldElement.addEventListener('input', () => {
+              console.log(mathFieldElement.value); // This will log the LaTeX content
+          });
+      });
+  </script>
+
+
+</body>
+</html>
