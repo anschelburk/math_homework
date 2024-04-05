@@ -2,22 +2,23 @@
 <html>
 <head>
     <title>Math Editor</title>
-    <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+    <script defer src="//unpkg.com/mathlive"></script>
+
 </head>
 <body>
 
-<div id="mathfield"></div>
+  <math-field id="mathfield"></math-field>
 
-<script>
-    let mathfield = MathLive.makeMathField('mathfield', {
-        virtualKeyboardMode: 'manual',
-        onContentDidChange: mathField => {
-            // Example: Get the LaTeX representation of the math field's content
-            const latex = mathField.getValue();
-            console.log(latex); // You can replace this with code to save the latex to your database
-        },
-    });
-</script>
+  <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const mathFieldElement = document.getElementById('mathfield');
+          mathFieldElement.addEventListener('input', () => {
+              console.log(mathFieldElement.value); // This will log the LaTeX content
+          });
+      });
+  </script>
+
 
 </body>
 </html>
