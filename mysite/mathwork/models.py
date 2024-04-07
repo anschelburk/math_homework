@@ -1,7 +1,7 @@
 # from django.contrib.postgres.fields import JSONField
 from django.db import models
 
-class math_assignment(models.Model):
+class MathAssignment(models.Model):
     student_name = models.CharField(max_length=255)
     teacher_name = models.CharField(max_length=255, blank=True)
     class_name = models.CharField(max_length=255, blank=True)
