@@ -10,11 +10,11 @@ def assignment_view(request):
         form = MathAssignmentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('success_view')
+            return redirect('success_view') # or return render(), or even set another variable and return at end of function, or messenging frameowrk to store a global message variable
     else:
-        form = MathAssignmentForm
+        form = MathAssignmentForm()
 
-    return render(request, 'assignment_form.html', {'form:' form})
+    return render(request, 'assignment_form.html', {'form': form})
 
 def math_editor(request):
     return render(request, 'mathapp/editor.html')
