@@ -4,7 +4,7 @@ from .models import MathAssignment
 class MathAssignmentForm(forms.ModelForm):
     class Meta:
         model = MathAssignment
-        fields = [fieldname for fieldname in MathAssignment._meta.get_fields()]
+        fields = "__all__"
         widgets = {
             'problems': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
         }
