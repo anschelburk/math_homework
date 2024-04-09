@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Math Assignment</title>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit Assignment</button>
-    </form>
-</body>
-</html>
+{% extends base_site.html}
+
+{% block title %}Math Assignment{% endblock %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Assignment</button>
+</form>
+{% endblock %}
