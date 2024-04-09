@@ -13,7 +13,7 @@ def assignment_view(request):
             return redirect('success_view') # or return render(), or even set another variable and return at end of function, or messenging frameowrk to store a global message variable
     else:
         form = MathAssignmentForm()
-    return render(request, 'assignment_form.html', {'form': form})
+    return render(request, 'base.html', {'form': form})
 
 def math_editor(request):
     return render(request, 'mathapp/editor.html')
