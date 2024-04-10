@@ -17,4 +17,4 @@ def assignment_view(request):
     return render(request, 'assignment_form.html', {'form': form})
 
 def math_editor(request):
-    return render(request, 'mathapp/editor.html')
+    return render(request, 'editor.html')

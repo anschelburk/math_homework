@@ -1,12 +1,12 @@
-{% extends "admin/base.html" %}
+<html>
+  <head>
+    <title>{% block title %}Math Homework{% endblock %}</title>
+  </head>
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+<body>
 
-{% block branding %}
-<div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div>
-{% if user.is_anonymous %}
-  {% include "admin/color_theme_toggle.html" %}
-{% endif %}
-{% endblock %}
+<!-- Need this -->
+{% block content %}{% endblock %}
 
-{% block nav-global %}{% endblock %}
+</body>
+</html>
