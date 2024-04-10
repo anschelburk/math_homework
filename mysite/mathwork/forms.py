@@ -6,5 +6,5 @@ class MathAssignmentForm(forms.ModelForm):
         model = MathAssignment
         fields = "__all__"
         widgets = {
-            'class_name': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+            'problems': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
         }
