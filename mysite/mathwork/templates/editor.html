@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Math Editor</title>
-    <script defer src="//unpkg.com/mathlive"></script>
+{% extends "base_site.html" %}
 
-</head>
-<body>
+{% block head_content %}
+<script defer src="//unpkg.com/mathlive"></script>
+{% endblock %}
 
-  <math-field id="mathfield"></math-field>
+{% block body_content %}
+<math-field id="mathfield"></math-field>
 
-  <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const mathFieldElement = document.getElementById('mathfield');
-          mathFieldElement.addEventListener('input', () => {
-              console.log(mathFieldElement.value); // This will log the LaTeX content
-          });
-      });
-  </script>
-
-
-</body>
-</html>
+<script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const mathFieldElement = document.getElementById('mathfield');
+        mathFieldElement.addEventListener('input', () => {
+            console.log(mathFieldElement.value); // This will log the LaTeX content
+        });
+    });
+</script>
+{% endblock %}
