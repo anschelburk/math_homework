@@ -2,11 +2,11 @@
 from django.db import models
 
 class MathAssignment(models.Model):
+    assignment_title = models.CharField(max_length=500, blank=False)
     student_name = models.CharField(max_length=255)
+    assignment_date = models.DateField(blank=True, null=True)
     teacher_name = models.CharField(max_length=255, blank=True)
     class_name = models.CharField(max_length=255, blank=True)
-    assignment_date = models.DateField(blank=True, null=True)
-    assignment_title = models.CharField(max_length=500, blank=False)
     problems = models.TextField(blank=True)
     # problems = JSONField
 
