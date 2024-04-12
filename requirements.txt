@@ -6,7 +6,6 @@ configobj==5.0.8
 dj-database-url==2.1.0
 Django==5.0.4
 pendulum==3.0.0
-pgcli==4.0.1
 pgspecial==2.1.1
 prompt-toolkit==3.0.43
 psycopg==3.1.18
