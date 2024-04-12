@@ -7,6 +7,7 @@ class MathAssignment(models.Model):
     class_name = models.CharField(max_length=255, blank=True)
     assignment_date = models.DateField(blank=True, null=True)
     assignment_title = models.CharField(max_length=500, blank=False)
+    problems = models.TextField(blank=True)
     # problems = JSONField
 
     def __str__(self):

@@ -2,7 +2,7 @@
 
 {% block title %}Math Assignment{% endblock %}
 
-{% block content %}
+{% block body_content %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
