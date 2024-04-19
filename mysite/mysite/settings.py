@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathwork.apps.MathworkConfig',
+    'mathfield'
 ]
 
 MIDDLEWARE = [

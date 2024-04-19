@@ -45,7 +45,7 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Submit Assignment</button>
+    <button type="submit">Save Assignment</button>
 </form>
 
 <p>Testing: Problems</p>
@@ -53,11 +53,11 @@
 
 <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const mathFieldElement = document.getElementById('mathfield');
-        mathFieldElement.addEventListener('input', () => {
-            console.log(mathFieldElement.value); // This will log the LaTeX content
-        });
+    const mathField = document.getElementById('mathInput');
+    const djangoFormField = document.getElementById('id_expression');
+    
+    mathField.addEventListener('input', function() {
+        djangoFormField.value = mathField.value;
     });
 </script>
 {% endblock %}
