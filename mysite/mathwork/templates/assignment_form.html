@@ -5,40 +5,18 @@
 {% block head_content %}
 <script defer src="//unpkg.com/mathlive"></script>
 <link
-    rel="stylesheet"
-    href="https://unpkg.com/mathlive/dist/mathlive-static.css"
+  rel="stylesheet"
+  href="https://unpkg.com/mathlive/dist/mathlive-static.css"
 />
-<style>
-    math-field {
-        width: 100%;
-        border-radius: 8px;
-        margin: 8px 0;
-    }
-    button {
-        border-radius: 8px;
-        padding: 8px;
-        margin: 8px 0;
-        font-size: 1em;
-        font-weight: bold;
-        font-family: system-ui;
-    }
-    p {
-        font-family: system-ui;
-        font-size: 1em;
-        padding: 0px;
-    }
-    #feedback {
-        font-family: system-ui;
-        font-size: 1.2em;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background: #f0f0f0;
-    }
-</style>
+<link
+  href="{% static 'css/math_assignment_style.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'js/math_keyboard.js' %}"
+  type="text/javascript"
+/>
 {% endblock %}
 
 {% block body_content %}
@@ -60,17 +38,8 @@
 
     <math-field id="mathfield_user_input"></math-field>
     <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
-    <script src="{% static 'js/math_keyboard.js' %}">
-      // document.addEventListener("DOMContentLoaded", function() {
-      //   const mathField = document.getElementById('mathfield_user_input');
-      //   const hiddenInput = document.getElementById('math_input');
-
-      //   mathField.addEventListener('input', function() {
-      //     hiddenInput.value = mathField.getValue('latex');
-      //   });
-      // });
-    </script>
-
+    <script src="{% static 'js/math_keyboard.js' %}"></script>
+    
     <input type="hidden" name="math_input" id="math_input">
     <button type="submit">Save Assignment</button>
 
