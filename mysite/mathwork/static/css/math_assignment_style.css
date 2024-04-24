@@ -1,0 +1,29 @@
+math-field {
+    width: 100%;
+    border-radius: 8px;
+    margin: 8px 0;
+}
+button {
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: system-ui;
+}
+p {
+    font-family: system-ui;
+    font-size: 1em;
+    padding: 0px;
+}
+#feedback {
+    font-family: system-ui;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f0f0f0;
+}
