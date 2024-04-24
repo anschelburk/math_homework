@@ -2,10 +2,47 @@
 
 {% block title %}Math Assignment{% endblock %}
 
+{% block head_content %}
+{% load static %}
+<script defer src="//unpkg.com/mathlive"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/mathlive/dist/mathlive-static.css"
+/>
+<link
+  href="{% static 'css/math_assignment_style.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'js/math_keyboard.js' %}"
+  type="text/javascript"
+/>
+{% endblock %}
+
 {% block body_content %}
-<form method="post">
+  <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit Assignment</button>
-</form>
+    <label>Assignment title:</label>
+    <input name="assignment_title" id="assignment_title">
+
+    <label>Student name:</label>
+    <input name="student_name" id="student_name">
+
+    <!-- todo: date picker -->
+
+    <label>Teacher name:</label>
+    <input name="teacher_name" id="teacher_name">
+
+    <label>Class name:</label>
+    <input name="class_name" id="class_name">
+
+    <math-field id="mathfield_user_input"></math-field>
+    <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+    <script src="{% static 'js/math_keyboard.js' %}"></script>
+    
+    <input type="hidden" name="math_input" id="math_input">
+    <button type="submit">Save Assignment</button>
+
+  </form>
 {% endblock %}
