@@ -1,21 +1,27 @@
-// JavaScript
-var canvas = document.getElementById('demo');
-var ctx = canvas.getContext('2d');
+document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("drawingCanvas");
+    const ctx = canvas.getContext("2d");
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
 
-// Define a Line class
-function Line(x1, y1, x2, y2) {
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
-    this.draw = function() {
+    canvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", () => (isDrawing = false));
+    canvas.addEventListener("mouseout", () => (isDrawing = false));
+
+    function draw(e) {
+        if (!isDrawing) return;
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(this.x1, this.y1);
-        ctx.lineTo(this.x2, this.y2);
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
-    };
-}
-
-// Example usage
-var myLine = new Line(10, 10, 100, 100);
-myLine.draw();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    }
+});

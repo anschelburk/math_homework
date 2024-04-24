@@ -2,9 +2,18 @@
 
 {% block head_content %}
 {% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script  type="text/javascript" src="{% static 'js/drawing.js' %}" charset="UTF-8"></script>
 {% endblock %}
 
 {% block body_content %}
-<canvas id="demo" width="400" height="400"></canvas>
-<script  type="text/javascript" src="{% static 'js/drawing.js' %}" charset="UTF-8"></script>
+<h1>Free Draw</h1>
+<table border="1">
+    <tr>
+        <td>
+            <canvas id="drawingCanvas" width="800" height="600"></canvas>
+        </td>
+    </tr>
+</table>
 {% endblock %}
