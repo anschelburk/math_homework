@@ -8,13 +8,29 @@
 {% endblock %}
 
 {% block body_content %}
-<h1>Free Draw</h1>
-<table border="1">
-    <tr>
-        <td>
-            <canvas id="drawingCanvas" width="800" height="600"></canvas>
-        </td>
-    </tr>
-</table>
-<button id="eraserButton">Eraser</button>
+<!-- upload_image.html (template for uploading an image) -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h1>Free Draw</h1>
+    <table border="1">
+        <tr>
+            <td>
+                <canvas id="drawingCanvas" width="800" height="600"></canvas>
+            </td>
+        </tr>
+    </table>
+    <button id="eraserButton">Eraser</button>
+    <button type="submit">Upload Image</button>
+</form>
+
+<!-- image_list.html (template for displaying a list of images) -->
+<ul>
+    {% for image in images %}
+        <li>
+            <img src="{{ image.image.url }}" alt="Image">
+            <!-- Add edit link or button here -->
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}

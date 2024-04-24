@@ -12,3 +12,7 @@ class MathAssignment(models.Model):
 
     def __str__(self):
         return f"Math assignment. Assignment Title: {self.assignment_title}. Student Name: {self.student_name}."
+    
+class ImageModel(models.Model):
+    image = models.ImageField(upload_to="images/")  # Save uploaded images in the "images/" directory
+
