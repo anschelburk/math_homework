@@ -8,7 +8,7 @@ class MathAssignment(models.Model):
     teacher_name = models.CharField(max_length=255, blank=True)
     class_name = models.CharField(max_length=255, blank=True)
     problems = models.TextField(blank=True)
-    # problems = JSONField
+    # problems_hidden = JSONField
 
     def __str__(self):
         return f"Math assignment. Assignment Title: {self.assignment_title}. Student Name: {self.student_name}."
