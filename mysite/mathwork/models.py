@@ -17,3 +17,6 @@ class MathAssignment(models.Model):
 class Drawing(models.Model):
     name = models.CharField(max_length=100)
     canvas_data = models.TextField()  # Store the JSON data here
+
+    def __str__(self):
+        return self.name

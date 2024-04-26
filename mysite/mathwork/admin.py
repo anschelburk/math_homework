@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MathAssignment
+from .models import MathAssignment, Drawing
 
-# Register your models here.
 admin.site.register(MathAssignment)
+admin.site.register(Drawing)
