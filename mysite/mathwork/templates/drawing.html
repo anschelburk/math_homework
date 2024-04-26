@@ -4,7 +4,13 @@
 {% load static %}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script  type="text/javascript" src="{% static 'js/drawing.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'js/drawing.js' %}" charset="UTF-8"></script>
+<style>
+    #drawingCanvas {
+        background-image: url("{% static 'img/cartesian_plane.png' %}");
+        background-size: cover; /* Adjust as needed */
+    }
+</style>
 {% endblock %}
 
 {% block body_content %}
@@ -12,15 +18,21 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <h1>Free Draw</h1>
+    <h1>Draw a Graph</h1>
     <table border="1">
         <tr>
             <td>
-                <canvas id="drawingCanvas" width="800" height="600"></canvas>
+                <!-- Add an image element to display the background image -->
+                <canvas id="drawingCanvas" width="800" height="800"></canvas>
             </td>
         </tr>
     </table>
     <button id="eraserButton">Eraser</button>
+    <!-- Replace the button with toggle switches -->
+    <label for="lineToggle">Draw a Line</label>
+    <input type="checkbox" id="lineToggle">
+    <label for="pointToggle">Draw a Point</label>
+    <input type="checkbox" id="pointToggle">
     <button type="submit">Upload Image</button>
 </form>
 
