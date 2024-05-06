@@ -1,48 +1,57 @@
 {% extends "base_site.html" %}
+{% load static %}
 
 {% block head_content %}
-{% load static %}
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script type="text/javascript" src="{% static 'js/drawing.js' %}" charset="UTF-8"></script>
-<style>
-    #drawingCanvas {
-        background-image: url("{% static 'img/cartesian_plane.png' %}");
-        background-size: cover; /* Adjust as needed */
-    }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 {% endblock %}
 
 {% block body_content %}
-<!-- upload_image.html (template for uploading an image) -->
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <h1>Draw a Graph</h1>
-    <table border="1">
-        <tr>
-            <td>
-                <!-- Add an image element to display the background image -->
-                <canvas id="drawingCanvas" width="800" height="800"></canvas>
-            </td>
-        </tr>
-    </table>
-    <button id="eraserButton">Eraser</button>
-    <!-- Replace the button with toggle switches -->
-    <label for="lineToggle">Draw a Line</label>
-    <input type="checkbox" id="lineToggle">
-    <label for="pointToggle">Draw a Point</label>
-    <input type="checkbox" id="pointToggle">
-    <button type="submit">Upload Image</button>
-</form>
 
-<!-- image_list.html (template for displaying a list of images) -->
-<ul>
-    {% for image in images %}
-        <li>
-            <img src="{{ image.image.url }}" alt="Image">
-            <!-- Add edit link or button here -->
-        </li>
-    {% endfor %}
-</ul>
+  <!-- Canvas element where drawing will occur -->
+  <canvas id="c" width="800" height="600" style="border:1px solid #ccc"></canvas>
+
+  <!-- Controls for drawing options -->
+  <button id="clear-canvas">Clear</button>
+
+  <input type="text" id="drawing-name" placeholder="Enter Drawing Name">
+  <button id="save-canvas">Save Drawing</button>
+
+  <select id="load-drawing-select">
+    <option value="">Select a drawing to load</option>
+  </select>
+  <button id="load-drawing">Load Drawing</button>
+
+  <button id="drawing-mode">Enter drawing mode</button>
+
+  <div id="drawing-mode-options">
+    <label>Line Width: <input type="range" id="drawing-line-width" min="1" max="10" value="2"></label>
+    <label>Color: <input type="color" id="drawing-color" value="#000000"></label>
+    <label>Shadow Width: <input type="range" id="drawing-shadow-width" min="0" max="5" value="0"></label>
+    <label>Shadow Offset: <input type="range" id="drawing-shadow-offset" min="0" max="5" value="0"></label>
+    <label>Shadow Color: <input type="color" id="drawing-shadow-color" value="#000000"></label>
+    <select id="drawing-mode-selector">
+        <option value="PencilBrush">Pencil</option>
+        <option value="CircleBrush">Circle</option>
+        <option value="SprayBrush">Spray</option>
+        <option value="PatternBrush">Pattern</option>
+        <option value="hline">Horizontal Line</option>
+        <option value="vline">Vertical Line</option>
+        <option value="square">Square</option>
+        <option value="diamond">Diamond</option>
+        <option value="texture">Texture</option>
+    </select>
+    <select id="backgroundSelector">
+      <option value="blank">Blank Drawing</option>
+      <option value="cartesian">X-Y Graph</option>
+      <!-- Add more options as needed -->
+    </select>
+  </div>
+
+{% endblock %}
+
+{% block footer_content %}
+  <script src="https://cdn.jsdelivr.net/npm/fabric"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
