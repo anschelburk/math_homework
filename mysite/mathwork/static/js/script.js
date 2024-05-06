@@ -84,6 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Please select a drawing to load.');
         }
     });
+
+    var backgroundSelector = document.getElementById('backgroundSelector');
+    backgroundSelector.addEventListener('change', function() {
+        var selectedValue = backgroundSelector.value;
+        updateCanvasBackground(selectedValue); // Call a function to update the canvas background
+    });
+
 });
 
 function saveDrawing(jsonData) {
@@ -117,8 +124,6 @@ function getCookie(name) {
 
 // Update the background
 function updateCanvasBackground(selectedValue) {
-    var canvas = new fabric.Canvas('yourCanvasElementId');
-
     if (selectedValue === 'blank') {
         canvas.setBackgroundColor('#ffffff', function() {
             canvas.renderAll();

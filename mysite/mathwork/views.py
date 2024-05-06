@@ -28,7 +28,6 @@ def math_keyboard(request):
     return render(request, 'math_keyboard.html')
 
 
-@csrf_exempt  # Not recommended for production without proper CSRF handling
 def save_drawing(request):
     if request.method == 'POST':
         data = json.loads(request.body)
