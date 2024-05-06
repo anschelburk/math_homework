@@ -23,25 +23,30 @@
   </select>
   <button id="load-drawing">Load Drawing</button>
 
-  <button id="drawing-mode" style="display:none;">Enter drawing mode</button>
+  <button id="drawing-mode">Enter drawing mode</button>
 
-  <div id="drawing-mode-options" style="display:none;">
-      <label>Line Width: <input type="range" id="drawing-line-width" min="1" max="10" value="2"></label>
-      <label>Color: <input type="color" id="drawing-color" value="#000000"></label>
-      <label>Shadow Width: <input type="range" id="drawing-shadow-width" min="0" max="5" value="0"></label>
-      <label>Shadow Offset: <input type="range" id="drawing-shadow-offset" min="0" max="5" value="0"></label>
-      <label>Shadow Color: <input type="color" id="drawing-shadow-color" value="#000000"></label>
-      <select id="drawing-mode-selector">
-          <option value="PencilBrush">Pencil</option>
-          <option value="CircleBrush">Circle</option>
-          <option value="SprayBrush">Spray</option>
-          <option value="PatternBrush">Pattern</option>
-          <option value="hline">Horizontal Line</option>
-          <option value="vline">Vertical Line</option>
-          <option value="square">Square</option>
-          <option value="diamond">Diamond</option>
-          <option value="texture">Texture</option>
-      </select>
+  <div id="drawing-mode-options">
+    <label>Line Width: <input type="range" id="drawing-line-width" min="1" max="10" value="2"></label>
+    <label>Color: <input type="color" id="drawing-color" value="#000000"></label>
+    <label>Shadow Width: <input type="range" id="drawing-shadow-width" min="0" max="5" value="0"></label>
+    <label>Shadow Offset: <input type="range" id="drawing-shadow-offset" min="0" max="5" value="0"></label>
+    <label>Shadow Color: <input type="color" id="drawing-shadow-color" value="#000000"></label>
+    <select id="drawing-mode-selector">
+        <option value="PencilBrush">Pencil</option>
+        <option value="CircleBrush">Circle</option>
+        <option value="SprayBrush">Spray</option>
+        <option value="PatternBrush">Pattern</option>
+        <option value="hline">Horizontal Line</option>
+        <option value="vline">Vertical Line</option>
+        <option value="square">Square</option>
+        <option value="diamond">Diamond</option>
+        <option value="texture">Texture</option>
+    </select>
+    <select id="backgroundSelector">
+      <option value="blank">Blank Drawing</option>
+      <option value="cartesian">X-Y Graph</option>
+      <!-- Add more options as needed -->
+    </select>
   </div>
 
 {% endblock %}

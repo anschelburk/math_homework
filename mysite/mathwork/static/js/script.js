@@ -115,3 +115,18 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// Update the background
+function updateCanvasBackground(selectedValue) {
+    var canvas = new fabric.Canvas('yourCanvasElementId');
+
+    if (selectedValue === 'blank') {
+        canvas.setBackgroundColor('#ffffff', function() {
+            canvas.renderAll();
+        });
+    } else if (selectedValue === 'cartesian') {
+        canvas.setBackgroundImage('/static/img/cartesian_plane.png', function() {
+            canvas.renderAll();
+        });
+    }
+    // Can copy/paste the above block to add more conditions for other images or custom backgrounds
+}
