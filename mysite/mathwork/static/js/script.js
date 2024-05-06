@@ -91,6 +91,41 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCanvasBackground(selectedValue); // Call a function to update the canvas background
     });
 
+    // mouse:down
+
+    // Assuming you have a reference to your canvas and the dropdown element
+    // const canvas = new fabric.Canvas('yourCanvasId'); // Replace with your actual canvas ID
+    const lineSelect = document.getElementById('lineselect');
+
+    // Event listener for dropdown change
+    lineSelect.addEventListener('change', function () {
+        const selectedOption = lineSelect.value;
+        if (selectedOption === 'freedraw') {
+            // Disable line-drawing code
+            canvas.isDrawingMode = true; // Enable free drawing mode
+        } else if (selectedOption === 'line') {
+        // Enable line-drawing code
+        canvas.isDrawingMode = false; // Disable free drawing mode
+        }
+    });
+
+    const line = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+        strokeWidth: selectedThickness,
+        stroke: selectedColour,
+        fill: this.setOpacity(DrawingColours.WHITE, DEFAULT_OPACITY),
+        strokeDashArray: dashArray,
+        selectable: false,
+        hasRotatingPoint: false
+    });
+    // }) as CustomFabricLine;
+    line.id = uuid();
+    canvas.add(line);
+
+    // mouse:move
+
+    line.set({ x2: pointer.x, y2: pointer.y });
+    line.setCoords();
+
 });
 
 function saveDrawing(jsonData) {
