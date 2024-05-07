@@ -1,5 +1,7 @@
 // Global scope for canvas variable
 var canvas;
+var undoStack = [];
+var redoStack = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the Fabric.js canvas
@@ -20,15 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     clearEl.onclick = function() { canvas.clear() };
 
-    let undoStack = []; // Array to store canvas states
     canvas.on('object:added', () => {
         undoStack.push(canvas.toJSON());
+        console.log(undoStack);
     });
     canvas.on('object:modified', () => {
         undoStack.push(canvas.toJSON());
     });
 
-    let redoStack = []; // Array to store redo states
     canvas.on('object:removed', () => {
         redoStack.push(canvas.toJSON());
     });
@@ -111,6 +112,18 @@ document.addEventListener('DOMContentLoaded', function() {
     userInputSelector.addEventListener('change', function() {
         var selectedValue = userInputSelector.value;
         updateUserInputMode(selectedValue); // Call a function to update the line drawing mode
+    });
+
+
+    var undoBtn = document.getElementById('undo');
+    var redoBtn = document.getElementById('redo');
+
+    undoBtn.addEventListener('click', function() {
+        undo();
+    });
+
+    redoBtn.addEventListener('click', function() {
+        redo();
     });
 
 });
@@ -217,7 +230,7 @@ function updateUserInputMode(selectedValue) {
     }
   }
 
-  function undo() {
+function undo() {
     if (undoStack.length > 1) {
         undoStack.pop(); // Remove the current state
         canvas.loadFromJSON(undoStack[undoStack.length - 1]);
