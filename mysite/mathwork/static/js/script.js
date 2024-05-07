@@ -20,6 +20,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     clearEl.onclick = function() { canvas.clear() };
 
+    let undoStack = []; // Array to store canvas states
+    canvas.on('object:added', () => {
+        undoStack.push(canvas.toJSON());
+    });
+    canvas.on('object:modified', () => {
+        undoStack.push(canvas.toJSON());
+    });
+
+    let redoStack = []; // Array to store redo states
+    canvas.on('object:removed', () => {
+        redoStack.push(canvas.toJSON());
+    });
+    canvas.on('object:modified', () => {
+        redoStack.push(canvas.toJSON());
+    });  
+
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
         if (canvas.isDrawingMode) {
@@ -91,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCanvasBackground(selectedValue); // Call a function to update the canvas background
     });
 
-    var lineDrawingSelector = document.getElementById('lineDrawingSelector');
-    lineDrawingSelector.addEventListener('change', function() {
-        var selectedValue = lineDrawingSelector.value;
-        updateLineDrawingMode(selectedValue); // Call a function to update the line drawing mode
+    var userInputSelector = document.getElementById('userInputSelector');
+    userInputSelector.addEventListener('change', function() {
+        var selectedValue = userInputSelector.value;
+        updateUserInputMode(selectedValue); // Call a function to update the line drawing mode
     });
 
 });
@@ -142,30 +158,55 @@ function updateCanvasBackground(selectedValue) {
     // Can copy/paste the above block to add more conditions for other images or custom backgrounds
 }
 
-function updateLineDrawingMode() {
-    const selectedOption = document.getElementById('lineDrawingSelector').value;
-  
-    if (selectedOption === 'line') {
-      // Activate line drawing mode
-      canvas.on('mouse:down', (options) => {
-        isDrawing = true;
-        startPoint = canvas.getPointer(options.e);
-      });
-  
-      canvas.on('mouse:up', () => {
-        if (isDrawing) {
-          const endPoint = canvas.getPointer(event.e);
-          canvas.add(new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
-            stroke: 'red',
-            strokeWidth: 2,
-          }));
-          isDrawing = false;
+function updateUserInputMode(selectedValue) {  
+    if (selectedValue === 'line') {
+        // Activate line drawing mode
+        canvas.on('mouse:down', (options) => {
+            isDrawing = true;
+            startPoint = canvas.getPointer(options.e);
+        });  
+        canvas.on('mouse:up', (options) => {
+            if (isDrawing) {
+                const endPoint = canvas.getPointer(options.e);
+                canvas.add(new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
+                    stroke: 'black',
+                    strokeWidth: 2,
+                }));
+                isDrawing = false;
+            }
+        });
+    } else if (selectedValue === 'freedraw') {
+        // Deactivate line drawing mode
+        canvas.off('mouse:down');
+        canvas.off('mouse:up');
+    }
+    else if (selectedValue === 'typing') {
+        canvas.off('mouse:down');
+        canvas.off('mouse:up');
+        canvas.addEventListener('click'), (options) => {
+            const text = new fabric.IText('Tap and Type', {
+                FontFace: 'Arial',
+                screenLeft: 100,
+                screenTop: 100,
+            });
+            canvas.add(text);
+            text.enterEditing();
         }
-      });
-    } else if (selectedOption === 'freedraw') {
-      // Deactivate line drawing mode
-      canvas.off('mouse:down');
-      canvas.off('mouse:up');
     }
   }
-  
+
+  function undo() {
+    if (undoStack.length > 1) {
+        undoStack.pop(); // Remove the current state
+        canvas.loadFromJSON(undoStack[undoStack.length - 1]);
+        canvas.renderAll();
+    }
+}
+
+function redo() {
+    if (redoStack.length > 0) {
+        const nextState = redoStack.pop();
+        canvas.loadFromJSON(nextState);
+        canvas.renderAll();
+    }
+}

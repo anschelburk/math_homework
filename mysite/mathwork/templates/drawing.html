@@ -14,6 +14,8 @@
 
   <!-- Controls for drawing options -->
   <button id="clear-canvas">Clear</button>
+  <button id="undo()">Undo</button>
+  <button id="redo()">Redo</button>
 
   <input type="text" id="drawing-name" placeholder="Enter Drawing Name">
   <button id="save-canvas">Save Drawing</button>
@@ -27,9 +29,10 @@
     <option value="cartesian">X-Y Graph</option>
     <!-- Add more options as needed -->
   </select>
-  <select id="lineselect">
+  <select id="userInputSelector">
     <option value="freedraw">Free Draw</option>
     <option value="line">Line</option>
+    <option value="typing">Typing</option>
   </select>
 
   <!-- <button id="drawing-mode">Enter drawing mode</button>
