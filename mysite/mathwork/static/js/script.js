@@ -91,40 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCanvasBackground(selectedValue); // Call a function to update the canvas background
     });
 
-    // mouse:down
-
-    // Assuming you have a reference to your canvas and the dropdown element
-    // const canvas = new fabric.Canvas('yourCanvasId'); // Replace with your actual canvas ID
-    const lineSelect = document.getElementById('lineselect');
-
-    // Event listener for dropdown change
-    lineSelect.addEventListener('change', function () {
-        const selectedOption = lineSelect.value;
-        if (selectedOption === 'freedraw') {
-            // Disable line-drawing code
-            canvas.isDrawingMode = true; // Enable free drawing mode
-        } else if (selectedOption === 'line') {
-        // Enable line-drawing code
-        canvas.isDrawingMode = false; // Disable free drawing mode
-        }
+    var lineDrawingSelector = document.getElementById('lineDrawingSelector');
+    lineDrawingSelector.addEventListener('change', function() {
+        var selectedValue = lineDrawingSelector.value;
+        updateLineDrawingMode(selectedValue); // Call a function to update the line drawing mode
     });
-
-    const line = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
-        strokeWidth: selectedThickness,
-        stroke: selectedColour,
-        fill: this.setOpacity(DrawingColours.WHITE, DEFAULT_OPACITY),
-        strokeDashArray: dashArray,
-        selectable: false,
-        hasRotatingPoint: false
-    });
-    // }) as CustomFabricLine;
-    line.id = uuid();
-    canvas.add(line);
-
-    // mouse:move
-
-    line.set({ x2: pointer.x, y2: pointer.y });
-    line.setCoords();
 
 });
 
@@ -170,3 +141,31 @@ function updateCanvasBackground(selectedValue) {
     }
     // Can copy/paste the above block to add more conditions for other images or custom backgrounds
 }
+
+function updateLineDrawingMode() {
+    const selectedOption = document.getElementById('lineDrawingSelector').value;
+  
+    if (selectedOption === 'line') {
+      // Activate line drawing mode
+      canvas.on('mouse:down', (options) => {
+        isDrawing = true;
+        startPoint = canvas.getPointer(options.e);
+      });
+  
+      canvas.on('mouse:up', () => {
+        if (isDrawing) {
+          const endPoint = canvas.getPointer(event.e);
+          canvas.add(new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
+            stroke: 'red',
+            strokeWidth: 2,
+          }));
+          isDrawing = false;
+        }
+      });
+    } else if (selectedOption === 'freedraw') {
+      // Deactivate line drawing mode
+      canvas.off('mouse:down');
+      canvas.off('mouse:up');
+    }
+  }
+  
