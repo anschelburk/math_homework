@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     canvas.on('object:modified', () => {
         redoStack.push(canvas.toJSON());
-    });  
+    });
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -158,13 +158,13 @@ function updateCanvasBackground(selectedValue) {
     // Can copy/paste the above block to add more conditions for other images or custom backgrounds
 }
 
-function updateUserInputMode(selectedValue) {  
+function updateUserInputMode(selectedValue) {
     if (selectedValue === 'line') {
         // Activate line drawing mode
         canvas.on('mouse:down', (options) => {
             isDrawing = true;
             startPoint = canvas.getPointer(options.e);
-        });  
+        });
         canvas.on('mouse:up', (options) => {
             if (isDrawing) {
                 const endPoint = canvas.getPointer(options.e);
@@ -181,17 +181,39 @@ function updateUserInputMode(selectedValue) {
         canvas.off('mouse:up');
     }
     else if (selectedValue === 'typing') {
-        canvas.off('mouse:down');
-        canvas.off('mouse:up');
-        canvas.addEventListener('click'), (options) => {
-            const text = new fabric.IText('Tap and Type', {
-                FontFace: 'Arial',
-                screenLeft: 100,
-                screenTop: 100,
-            });
-            canvas.add(text);
-            text.enterEditing();
-        }
+      // Set up click to add text
+      canvas.on('mouse:up', (options) => {
+          const pointer = canvas.getPointer(options.e);
+          const text = new fabric.IText('Tap and Type', {
+              fontFamily: 'Arial',
+              left: pointer.x,
+              top: pointer.y,
+              fontSize: 20,
+              fill: 'black'
+          });
+
+          // Add a flag to check if the default text has been edited
+          text.defaultText = true;
+
+          // Add the text to the canvas
+          canvas.add(text);
+
+          // Automatically enter editing mode
+          text.on('selected', function() {
+              if (this.defaultText) {
+                  this.selectAll();
+              }
+          });
+
+          text.on('editing:entered', function() {
+              if (this.defaultText) {
+                  this.defaultText = false;
+                  this.text = ''; // Clear the default text on first edit
+              }
+          });
+
+          text.enterEditing(); // This will put the text in editing mode directly
+      });
     }
   }
 
