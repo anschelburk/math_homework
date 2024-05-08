@@ -25,15 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.on('object:added', () => {
         undoStack.push(canvas.toJSON());
         console.log(undoStack);
+        redoStack = []
     });
     canvas.on('object:modified', () => {
         undoStack.push(canvas.toJSON());
+        console.log(undoStack);
+        redoStack = []
     });
 
     canvas.on('object:removed', () => {
-        redoStack.push(canvas.toJSON());
-    });
-    canvas.on('object:modified', () => {
         redoStack.push(canvas.toJSON());
     });
 
@@ -175,18 +175,26 @@ function updateUserInputMode(selectedValue) {
     if (selectedValue === 'line') {
         // Activate line drawing mode
         canvas.on('mouse:down', (options) => {
+            // isDrawing = true;
             isDrawing = true;
             startPoint = canvas.getPointer(options.e);
+            line = new fabric.Line([startPoint.x, startPoint.y, startPoint.x, startPoint.y], {
+                stroke: 'black',
+                strokeWidth: 1,
+            });
+            canvas.add(line);
         });
-        canvas.on('mouse:up', (options) => {
+        canvas.on('mouse:move', (options) => {
             if (isDrawing) {
-                const endPoint = canvas.getPointer(options.e);
-                canvas.add(new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
-                    stroke: 'black',
-                    strokeWidth: 2,
-                }));
-                isDrawing = false;
+                const currentPoint = canvas.getPointer(options.e);
+                line.set({ x2: currentPoint.x, y2: currentPoint.y });
+                canvas.renderAll();
             }
+        });
+        canvas.on('mouse:up', () => {
+            isDrawing = false;
+            line.setCoords();
+            canvas.setActiveObject(line).renderAll();
         });
     } else if (selectedValue === 'freedraw') {
         // Deactivate line drawing mode
@@ -197,7 +205,7 @@ function updateUserInputMode(selectedValue) {
       // Set up click to add text
       canvas.on('mouse:up', (options) => {
           const pointer = canvas.getPointer(options.e);
-          const text = new fabric.IText('Tap and Type', {
+          const text = new fabric.IText('', {
               fontFamily: 'Arial',
               left: pointer.x,
               top: pointer.y,
@@ -230,17 +238,21 @@ function updateUserInputMode(selectedValue) {
     }
   }
 
-function undo() {
+  function undo() {
+    console.log('Undo Stack Length: ' + undoStack.length);
     if (undoStack.length > 1) {
-        undoStack.pop(); // Remove the current state
+        const prevState = undoStack.pop(); // Remove the current state
+        redoStack.push(canvas.toJSON()); // Log the current state to redoStack
         canvas.loadFromJSON(undoStack[undoStack.length - 1]);
         canvas.renderAll();
     }
 }
 
 function redo() {
+    console.log('Redo Stack Length: ' + redoStack.length);
     if (redoStack.length > 0) {
         const nextState = redoStack.pop();
+        undoStack.push(canvas.toJSON()); // Log the current state to undoStack
         canvas.loadFromJSON(nextState);
         canvas.renderAll();
     }
