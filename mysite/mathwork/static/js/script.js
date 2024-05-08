@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
         redoStack = []
     });
 
-    canvas.on('object:removed', () => {
-        redoStack.push(canvas.toJSON());
-    });
+    // canvas.on('object:removed', () => {
+    //     redoStack.push(canvas.toJSON());
+    // });
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -240,10 +240,10 @@ function updateUserInputMode(selectedValue) {
 }
 
 function redo() {
-    if (redoStack.length > 0) {
+    // if (redoStack.length > 0) {
         const nextState = redoStack.pop();
         undoStack.push(canvas.toJSON()); // Log the current state to undoStack
-        canvas.loadFromJSON(nextState);
+        canvas.loadFromJSON(redoStack[redoStack.length]);
         canvas.renderAll();
     }
-}
+// }
