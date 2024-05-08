@@ -175,11 +175,12 @@ function updateUserInputMode(selectedValue) {
     if (selectedValue === 'line') {
         // Activate line drawing mode
         canvas.on('mouse:down', (options) => {
+            // isDrawing = true;
             isDrawing = true;
             startPoint = canvas.getPointer(options.e);
             line = new fabric.Line([startPoint.x, startPoint.y, startPoint.x, startPoint.y], {
                 stroke: 'black',
-                strokeWidth: 2,
+                strokeWidth: 1,
             });
             canvas.add(line);
         });
