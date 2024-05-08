@@ -1,7 +1,5 @@
 // Global scope for canvas variable
 var canvas;
-var undoStack = [];
-var redoStack = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the Fabric.js canvas
@@ -20,21 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
         drawingShadowOffset = document.getElementById('drawing-shadow-offset'),
         clearEl = document.getElementById('clear-canvas');
 
-    clearEl.onclick = function() { canvas.clear() };
+    clearEl.onclick = function() {
+      canvas.clear()
+    };
 
     canvas.on('object:added', () => {
-        undoStack.push(canvas.toJSON());
-        console.log(undoStack);
-        redoStack = []
     });
     canvas.on('object:modified', () => {
-        undoStack.push(canvas.toJSON());
-        console.log(undoStack);
-        redoStack = []
     });
 
     canvas.on('object:removed', () => {
-        redoStack.push(canvas.toJSON());
     });
 
     drawingModeEl.onclick = function() {
@@ -112,18 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
     userInputSelector.addEventListener('change', function() {
         var selectedValue = userInputSelector.value;
         updateUserInputMode(selectedValue); // Call a function to update the line drawing mode
-    });
-
-
-    var undoBtn = document.getElementById('undo');
-    var redoBtn = document.getElementById('redo');
-
-    undoBtn.addEventListener('click', function() {
-        undo();
-    });
-
-    redoBtn.addEventListener('click', function() {
-        redo();
     });
 
 });
@@ -238,22 +219,25 @@ function updateUserInputMode(selectedValue) {
     }
   }
 
-  function undo() {
-    console.log('Undo Stack Length: ' + undoStack.length);
-    if (undoStack.length > 1) {
-        const prevState = undoStack.pop(); // Remove the current state
-        redoStack.push(canvas.toJSON()); // Log the current state to redoStack
-        canvas.loadFromJSON(undoStack[undoStack.length - 1]);
-        canvas.renderAll();
-    }
+function undo() {
+    canvas.undo();
 }
 
 function redo() {
-    console.log('Redo Stack Length: ' + redoStack.length);
-    if (redoStack.length > 0) {
-        const nextState = redoStack.pop();
-        undoStack.push(canvas.toJSON()); // Log the current state to undoStack
-        canvas.loadFromJSON(nextState);
-        canvas.renderAll();
-    }
+    canvas.redo();
 }
+
+
+document.addEventListener('keyup', (event) => {
+    const { keyCode, ctrlKey } = event;
+    if (!ctrlKey) return;
+
+    if (keyCode === 90) { // Ctrl+Z for Undo
+        undo();
+    }
+
+    if (keyCode === 89) { // Ctrl+Y for Redo
+        redo();
+    }
+});
+

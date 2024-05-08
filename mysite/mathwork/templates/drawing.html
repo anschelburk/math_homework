@@ -14,8 +14,9 @@
 
   <!-- Controls for drawing options -->
   <button id="clear-canvas">Clear</button>
-  <button id="undo">Undo</button>
-  <button id="redo">Redo</button>
+
+  <button onclick="undo()">Undo</button>
+  <button onclick="redo()">Redo</button>
 
   <input type="text" id="drawing-name" placeholder="Enter Drawing Name">
   <button id="save-canvas">Save Drawing</button>
@@ -60,5 +61,6 @@
 
 {% block footer_content %}
   <script src="https://cdn.jsdelivr.net/npm/fabric"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fabric-history"></script>
   <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
