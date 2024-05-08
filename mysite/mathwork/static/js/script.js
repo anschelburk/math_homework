@@ -100,31 +100,7 @@ function updateCanvasBackground(selectedValue) {
 }
 
 function updateUserInputMode(selectedValue) {
-    if (selectedValue === 'line') {
-        // Activate line drawing mode
-        canvas.on('mouse:down', (options) => {
-            // isDrawing = true;
-            isDrawing = true;
-            startPoint = canvas.getPointer(options.e);
-            line = new fabric.Line([startPoint.x, startPoint.y, startPoint.x, startPoint.y], {
-                stroke: 'black',
-                strokeWidth: 1,
-            });
-            canvas.add(line);
-        });
-        canvas.on('mouse:move', (options) => {
-            if (isDrawing) {
-                const currentPoint = canvas.getPointer(options.e);
-                line.set({ x2: currentPoint.x, y2: currentPoint.y });
-                canvas.renderAll();
-            }
-        });
-        canvas.on('mouse:up', () => {
-            isDrawing = false;
-            line.setCoords();
-            canvas.setActiveObject(line).renderAll();
-        });
-    } else if (selectedValue === 'freedraw') {
+    if (selectedValue === 'freedraw') {
         // Deactivate line drawing mode
         canvas.off('mouse:down');
         canvas.off('mouse:up');
