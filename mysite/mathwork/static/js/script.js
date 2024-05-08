@@ -177,16 +177,23 @@ function updateUserInputMode(selectedValue) {
         canvas.on('mouse:down', (options) => {
             isDrawing = true;
             startPoint = canvas.getPointer(options.e);
+            line = new fabric.Line([startPoint.x, startPoint.y, startPoint.x, startPoint.y], {
+                stroke: 'black',
+                strokeWidth: 2,
+            });
+            canvas.add(line);
         });
-        canvas.on('mouse:up', (options) => {
+        canvas.on('mouse:move', (options) => {
             if (isDrawing) {
-                const endPoint = canvas.getPointer(options.e);
-                canvas.add(new fabric.Line([startPoint.x, startPoint.y, endPoint.x, endPoint.y], {
-                    stroke: 'black',
-                    strokeWidth: 2,
-                }));
-                isDrawing = false;
+                const currentPoint = canvas.getPointer(options.e);
+                line.set({ x2: currentPoint.x, y2: currentPoint.y });
+                canvas.renderAll();
             }
+        });
+        canvas.on('mouse:up', () => {
+            isDrawing = false;
+            line.setCoords();
+            canvas.setActiveObject(line).renderAll();
         });
     } else if (selectedValue === 'freedraw') {
         // Deactivate line drawing mode
