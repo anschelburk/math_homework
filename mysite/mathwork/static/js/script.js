@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
         if (canvas.isDrawingMode) {
-            drawingModeEl.innerHTML = 'Cancel drawing mode';
+            drawingModeEl.innerHTML = 'Use Cursor';
             drawingOptionsEl.style.display = '';
         }
         else {
-            drawingModeEl.innerHTML = 'Enter drawing mode';
+            drawingModeEl.innerHTML = 'Start Drawing';
             drawingOptionsEl.style.display = 'none';
         }
     };
