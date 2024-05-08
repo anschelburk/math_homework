@@ -36,9 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.on('object:removed', () => {
         redoStack.push(canvas.toJSON());
     });
-    canvas.on('object:modified', () => {
-        redoStack.push(canvas.toJSON());
-    });
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
