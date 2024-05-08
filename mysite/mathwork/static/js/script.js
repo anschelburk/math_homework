@@ -56,20 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function saveDrawing(jsonData) {
-    fetch('/save-drawing/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: jsonData
-    })
-    .then(response => response.json())
-    .then(data => console.log('Success:', data))
-    .catch((error) => console.error('Error:', error));
-}
-
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
