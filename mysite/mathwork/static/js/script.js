@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.on('object:added', () => {
         undoStack.push(canvas.toJSON());
         console.log(undoStack);
+        redoStack = []
     });
     canvas.on('object:modified', () => {
         undoStack.push(canvas.toJSON());
         console.log(undoStack);
+        redoStack = []
     });
 
     // canvas.on('object:removed', () => {
@@ -241,16 +243,13 @@ function undo() {
 
 function redo() {
     if (redoStack.length > 0) {
-        redoStack.pop(); // Remove the current state
-        canvas.loadFromJSON(redoStack[redoStack.length - 1]);
-        canvas.renderAll();
+        const nextState = redoStack.pop();
+        // Check if the nextState is valid (e.g., it was previously removed or modified)
+        // You can add additional checks here based on your specific requirements
+        if (nextState) {
+            undoStack.push(canvas.toJSON()); // Save the current state to the undo stack
+            canvas.loadFromJSON(nextState);
+            canvas.renderAll();
+        }
     }
 }
-
-// function redo() {
-//     if (redoStack.length > 0) {
-//         const nextState = redoStack.pop();
-//         canvas.loadFromJSON(nextState);
-//         canvas.renderAll();
-//     }
-// }
