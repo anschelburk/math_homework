@@ -239,6 +239,7 @@ function updateUserInputMode(selectedValue) {
   }
 
   function undo() {
+    console.log('Undo Stack Length: ' + undoStack.length);
     if (undoStack.length > 1) {
         const prevState = undoStack.pop(); // Remove the current state
         redoStack.push(canvas.toJSON()); // Log the current state to redoStack
@@ -248,6 +249,7 @@ function updateUserInputMode(selectedValue) {
 }
 
 function redo() {
+    console.log('Redo Stack Length: ' + redoStack.length);
     if (redoStack.length > 0) {
         const nextState = redoStack.pop();
         undoStack.push(canvas.toJSON()); // Log the current state to undoStack
