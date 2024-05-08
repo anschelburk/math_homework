@@ -28,14 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     canvas.on('object:modified', () => {
         undoStack.push(canvas.toJSON());
+        console.log(undoStack);
     });
 
-    canvas.on('object:removed', () => {
-        redoStack.push(canvas.toJSON());
-    });
-    canvas.on('object:modified', () => {
-        redoStack.push(canvas.toJSON());
-    });
+    // canvas.on('object:removed', () => {
+    //     redoStack.push(canvas.toJSON());
+    // });
+    // canvas.on('object:modified', () => {
+    //     redoStack.push(canvas.toJSON());
+    // });
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -197,7 +198,7 @@ function updateUserInputMode(selectedValue) {
       // Set up click to add text
       canvas.on('mouse:up', (options) => {
           const pointer = canvas.getPointer(options.e);
-          const text = new fabric.IText('Tap and Type', {
+          const text = new fabric.IText('', {
               fontFamily: 'Arial',
               left: pointer.x,
               top: pointer.y,
@@ -240,8 +241,16 @@ function undo() {
 
 function redo() {
     if (redoStack.length > 0) {
-        const nextState = redoStack.pop();
-        canvas.loadFromJSON(nextState);
+        redoStack.pop(); // Remove the current state
+        canvas.loadFromJSON(redoStack[redoStack.length - 1]);
         canvas.renderAll();
     }
 }
+
+// function redo() {
+//     if (redoStack.length > 0) {
+//         const nextState = redoStack.pop();
+//         canvas.loadFromJSON(nextState);
+//         canvas.renderAll();
+//     }
+// }
