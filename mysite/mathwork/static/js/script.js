@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
         redoStack = []
     });
 
-    // canvas.on('object:removed', () => {
-    //     redoStack.push(canvas.toJSON());
-    // });
-    // canvas.on('object:modified', () => {
-    //     redoStack.push(canvas.toJSON());
-    // });
+    canvas.on('object:removed', () => {
+        redoStack.push(canvas.toJSON());
+    });
+    canvas.on('object:modified', () => {
+        redoStack.push(canvas.toJSON());
+    });
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -233,9 +233,10 @@ function updateUserInputMode(selectedValue) {
     }
   }
 
-function undo() {
+  function undo() {
     if (undoStack.length > 1) {
-        undoStack.pop(); // Remove the current state
+        const prevState = undoStack.pop(); // Remove the current state
+        redoStack.push(canvas.toJSON()); // Log the current state to redoStack
         canvas.loadFromJSON(undoStack[undoStack.length - 1]);
         canvas.renderAll();
     }
@@ -244,12 +245,8 @@ function undo() {
 function redo() {
     if (redoStack.length > 0) {
         const nextState = redoStack.pop();
-        // Check if the nextState is valid (e.g., it was previously removed or modified)
-        // You can add additional checks here based on your specific requirements
-        if (nextState) {
-            undoStack.push(canvas.toJSON()); // Save the current state to the undo stack
-            canvas.loadFromJSON(nextState);
-            canvas.renderAll();
-        }
+        undoStack.push(canvas.toJSON()); // Log the current state to undoStack
+        canvas.loadFromJSON(nextState);
+        canvas.renderAll();
     }
 }
