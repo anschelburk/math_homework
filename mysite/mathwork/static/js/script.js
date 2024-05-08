@@ -219,7 +219,6 @@ function updateUserInputMode(selectedValue) {
     }
   }
 
-
 function undo() {
     canvas.undo();
 }
