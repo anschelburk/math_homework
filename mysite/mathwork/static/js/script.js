@@ -227,3 +227,18 @@ function undo() {
 function redo() {
     canvas.redo();
 }
+
+
+document.addEventListener('keyup', (event) => {
+    const { keyCode, ctrlKey } = event;
+    if (!ctrlKey) return;
+
+    if (keyCode === 90) { // Ctrl+Z for Undo
+        undo();
+    }
+
+    if (keyCode === 89) { // Ctrl+Y for Redo
+        redo();
+    }
+});
+
