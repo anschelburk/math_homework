@@ -9,6 +9,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fabric.Object.prototype.transparentCorners = false;
 
+    // Define eraser brush
+    canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
+    canvas.isDrawingMode = true;
+    canvas.freeDrawingBrush.width = 10; // Optional: Set the eraser width
+    canvas.freeDrawingBrush.inverted = true; // Enable undo erasing
+
+    // Set initial eraser brush settings
+    let isEraserMode = false;
+    var eraserBtn = document.getElementById('eraser-toggle');
+
+    // Toggle between standard brush and eraser brush
+    eraserBtn.onclick = function() {
+        isEraserMode = !isEraserMode;
+        if (isEraserMode) {
+            // Switch to eraser brush
+            canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
+            eraserBtn.innerHTML = 'Pencil'
+        }
+        else {
+            // Switch back to standard brush (e.g., PencilBrush)
+            canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+            eraserBtn.innerHTML = "Eraser"
+        }
+    };
+
+
     var drawingModeEl = document.getElementById('drawing-mode'),
         drawingOptionsEl = document.getElementById('drawing-mode-options'),
         // drawingColorEl = document.getElementById('drawing-color'),
