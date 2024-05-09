@@ -1,83 +1,57 @@
-// Global scope for canvas variable
 var canvas;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the Fabric.js canvas
     canvas = new fabric.Canvas('c', {
         isDrawingMode: true
     });
 
     fabric.Object.prototype.transparentCorners = false;
 
-    // Define eraser brush
-    canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
-    canvas.isDrawingMode = true;
-    canvas.freeDrawingBrush.width = 10; // Optional: Set the eraser width
-    canvas.freeDrawingBrush.inverted = true; // Enable undo erasing
-
-    // Set initial eraser brush settings
     let isEraserMode = false;
     var eraserBtn = document.getElementById('eraser-toggle');
 
-    // Toggle between standard brush and eraser brush
     eraserBtn.onclick = function() {
         isEraserMode = !isEraserMode;
         if (isEraserMode) {
-            // Switch to eraser brush
+            // Switch to eraser
             canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
+            canvas.freeDrawingBrush.width = 10; // otherwise way to narrow
+            // canvas.freeDrawingBrush.inverted = true; // Enable undo erasing
             eraserBtn.innerHTML = 'Pencil'
         }
         else {
-            // Switch back to standard brush (e.g., PencilBrush)
+            // Switch back to standard brush
             canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
             eraserBtn.innerHTML = "Eraser"
         }
     };
 
 
-    var drawingModeEl = document.getElementById('drawing-mode'),
-        drawingOptionsEl = document.getElementById('drawing-mode-options'),
-        // drawingColorEl = document.getElementById('drawing-color'),
-        // drawingShadowColorEl = document.getElementById('drawing-shadow-color'),
-        // drawingLineWidthEl = document.getElementById('drawing-line-width'),
-        // drawingShadowWidth = document.getElementById('drawing-shadow-width'),
-        // drawingShadowOffset = document.getElementById('drawing-shadow-offset'),
-        clearEl = document.getElementById('clear-canvas');
+    var drawingModeEl = document.getElementById('drawing-mode');
+    var drawingOptionsEl = document.getElementById('drawing-mode-options');
+    var clearEl = document.getElementById('clear-canvas');
 
-    clearEl.onclick = function() {
-      canvas.clear()
-    };
-
-    canvas.on('object:added', () => {
-    });
-    canvas.on('object:modified', () => {
-    });
-
-    canvas.on('object:removed', () => {
-    });
+    clearEl.onclick = function() { canvas.clear() };
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
         if (canvas.isDrawingMode) {
             drawingModeEl.innerHTML = 'Stop Drawing';
-            drawingOptionsEl.style.display = '';
-        }
-        else {
+        } else {
             drawingModeEl.innerHTML = 'Draw More';
-            drawingOptionsEl.style.display = 'none';
         }
     };
 
     var backgroundSelector = document.getElementById('backgroundSelector');
     backgroundSelector.addEventListener('change', function() {
         var selectedValue = backgroundSelector.value;
-        updateCanvasBackground(selectedValue); // Call a function to update the canvas background
+        updateCanvasBackground(selectedValue);
     });
 
     var userInputSelector = document.getElementById('userInputSelector');
     userInputSelector.addEventListener('change', function() {
         var selectedValue = userInputSelector.value;
-        updateUserInputMode(selectedValue); // Call a function to update the line drawing mode
+        updateUserInputMode(selectedValue);
     });
 
 });
@@ -94,7 +68,6 @@ function updateCanvasBackground(selectedValue) {
             canvas.renderAll();
         });
     }
-    // Can copy/paste the above block to add more conditions for other images or custom backgrounds
 }
 
 function updateUserInputMode(selectedValue) {
@@ -131,7 +104,7 @@ function updateUserInputMode(selectedValue) {
           text.on('editing:entered', function() {
               if (this.defaultText) {
                   this.defaultText = false;
-                  this.text = ''; // Clear the default text on first edit
+                  this.text = '';
               }
           });
 

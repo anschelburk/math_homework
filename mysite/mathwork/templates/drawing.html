@@ -26,7 +26,7 @@
     <button id="clear-canvas">Clear</button>
     <button onclick="undo()">Undo</button>
     <button onclick="redo()">Redo</button>
-  
+
     <select id="backgroundSelector">
       <option value="blank">Blank Drawing</option>
       <option value="cartesian">X-Y Graph</option>
@@ -39,30 +39,14 @@
     <button id="eraser-toggle">Eraser</button>
     <button id="drawing-mode">Stop Drawing</button>
   </div>
-  
-  <!-- <div id="drawing-mode-options"> -->
-    <!-- <label>Line Width: <input type="range" id="drawing-line-width" min="1" max="10" value="2"></label> -->
-    <!-- <label>Color: <input type="color" id="drawing-color" value="#000000"></label> -->
-    <!-- <label>Shadow Width: <input type="range" id="drawing-shadow-width" min="0" max="5" value="0"></label> -->
-    <!-- <label>Shadow Offset: <input type="range" id="drawing-shadow-offset" min="0" max="5" value="0"></label> -->
-    <!-- <label>Shadow Color: <input type="color" id="drawing-shadow-color" value="#000000"></label> -->
-    <!-- <select id="drawing-mode-selector"> -->
-      <!-- <option value="PencilBrush">Pencil</option>
-        <option value="CircleBrush">Circle</option>
-        <option value="SprayBrush">Spray</option>
-        <option value="PatternBrush">Pattern</option>
-        <option value="hline">Horizontal Line</option>
-        <option value="vline">Vertical Line</option>
-        <option value="square">Square</option>
-        <option value="diamond">Diamond</option>
-        <option value="texture">Texture</option>
-      </select>
-    </div> -->
-    
-    {% endblock %}
-    
-    {% block footer_content %}
-    <script src="https://cdn.jsdelivr.net/npm/fabric"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fabric-history"></script>
-    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}
+
+{% block footer_content %}
+  <!--<script src="https://cdn.jsdelivr.net/npm/fabric"></script>-->
+  <script type="text/javascript" src="{% static 'js/fabric.min.js' %}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/fabric-history"></script>
+
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
