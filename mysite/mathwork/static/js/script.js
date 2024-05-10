@@ -64,9 +64,23 @@ function updateCanvasBackground(selectedValue) {
             canvas.renderAll();
         });
     } else if (selectedValue === 'cartesian') {
-        canvas.setBackgroundImage('/static/img/cartesian_plane.png', function() {
-            canvas.renderAll();
-        });
+
+        var cartesianImg = new Image()
+        cartesianImg.src = '/static/img/cartesian_plane.png'
+
+        cartesianImg.onload = function() {
+            var fabricCartesianBackground = new fabric.Image(cartesianImg, {
+                left: 0,
+                top: 0,
+                scaleX: canvas.width / cartesianImg.width,
+                scaleY: canvas.height / cartesianImg.height,
+                originX: 'left',
+                originY: 'top',
+                erasable: false
+            });
+
+            canvas.setBackgroundImage(fabricCartesianBackground, canvas.renderAll.bind(canvas));
+        };
     }
 }
 
