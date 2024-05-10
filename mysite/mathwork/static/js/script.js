@@ -1,4 +1,6 @@
 var canvas;
+let isCartesianBackground = false;
+let isEraserMode = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     canvas = new fabric.Canvas('c', {
@@ -7,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fabric.Object.prototype.transparentCorners = false;
 
-    let isEraserMode = false;
     var eraserBtn = document.getElementById('eraser-toggle');
 
     eraserBtn.onclick = function() {
@@ -31,7 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var drawingOptionsEl = document.getElementById('drawing-mode-options');
     var clearEl = document.getElementById('clear-canvas');
 
-    clearEl.onclick = function() { canvas.clear() };
+    clearEl.onclick = function() {
+            canvas.clear()
+            if (isCartesianBackground) {
+                updateCanvasBackground('cartesian')
+            }
+            else if (isCartesianBackground === false) {
+                updateCanvasBackground('blank')
+            };
+        };
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -60,24 +69,46 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update the background
 function updateCanvasBackground(selectedValue) {
     if (selectedValue === 'blank') {
+        isCartesianBackground = false;
         canvas.setBackgroundColor('#ffffff', function() {
             canvas.renderAll();
         });
+        canvas.setBackgroundImage(null, canvas.renderAll.bind(canvas));
     } else if (selectedValue === 'cartesian') {
-        canvas.setBackgroundImage('/static/img/cartesian_plane.png', function() {
-            canvas.renderAll();
-        });
+
+        isCartesianBackground = true;
+        var cartesianImg = new Image()
+        cartesianImg.src = '/static/img/cartesian_plane.png'
+
+        cartesianImg.onload = function() {
+            var fabricCartesianBackground = new fabric.Image(cartesianImg, {
+                left: 0,
+                top: 0,
+                scaleX: canvas.width / cartesianImg.width,
+                scaleY: canvas.height / cartesianImg.height,
+                originX: 'left',
+                originY: 'top',
+                erasable: false
+            });
+            canvas.setBackgroundImage(fabricCartesianBackground, canvas.renderAll.bind(canvas));
+        };
     }
 }
 
 function updateUserInputMode(selectedValue) {
     if (selectedValue === 'freedraw') {
+        if (isEraserMode === false) {
+            canvas.freeDrawingBrush.width = 1
+        }
         // Deactivate line drawing mode
         canvas.off('mouse:down');
         canvas.off('mouse:up');
     }
     else if (selectedValue === 'typing') {
       // Set up click to add text
+      if (isEraserMode === false) {
+        canvas.freeDrawingBrush.width = 0
+      };
       canvas.on('mouse:up', (options) => {
           const pointer = canvas.getPointer(options.e);
           const text = new fabric.IText('', {
