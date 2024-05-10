@@ -1,132 +1,168 @@
-// Global scope for canvas variable
 var canvas;
+let isCartesianBackground = false;
+let isEraserMode = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the Fabric.js canvas
     canvas = new fabric.Canvas('c', {
         isDrawingMode: true
     });
 
     fabric.Object.prototype.transparentCorners = false;
 
-    var drawingModeEl = document.getElementById('drawing-mode'),
-        drawingOptionsEl = document.getElementById('drawing-mode-options'),
-        drawingColorEl = document.getElementById('drawing-color'),
-        drawingShadowColorEl = document.getElementById('drawing-shadow-color'),
-        drawingLineWidthEl = document.getElementById('drawing-line-width'),
-        drawingShadowWidth = document.getElementById('drawing-shadow-width'),
-        drawingShadowOffset = document.getElementById('drawing-shadow-offset'),
-        clearEl = document.getElementById('clear-canvas');
+    var eraserBtn = document.getElementById('eraser-toggle');
 
-    clearEl.onclick = function() { canvas.clear() };
+    eraserBtn.onclick = function() {
+        isEraserMode = !isEraserMode;
+        if (isEraserMode) {
+            // Switch to eraser
+            canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
+            canvas.freeDrawingBrush.width = 10; // otherwise way to narrow
+            // canvas.freeDrawingBrush.inverted = true; // Enable undo erasing
+            eraserBtn.innerHTML = 'Pencil'
+        }
+        else {
+            // Switch back to standard brush
+            canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+            eraserBtn.innerHTML = "Eraser"
+        }
+    };
+
+
+    var drawingModeEl = document.getElementById('drawing-mode');
+    var drawingOptionsEl = document.getElementById('drawing-mode-options');
+    var clearEl = document.getElementById('clear-canvas');
+
+    clearEl.onclick = function() {
+            canvas.clear()
+            if (isCartesianBackground) {
+                updateCanvasBackground('cartesian')
+            }
+            else if (isCartesianBackground === false) {
+                updateCanvasBackground('blank')
+            };
+        };
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
         if (canvas.isDrawingMode) {
-            drawingModeEl.innerHTML = 'Cancel drawing mode';
-            drawingOptionsEl.style.display = '';
-        }
-        else {
-            drawingModeEl.innerHTML = 'Enter drawing mode';
-            drawingOptionsEl.style.display = 'none';
+            drawingModeEl.innerHTML = 'Stop Drawing';
+        } else {
+            drawingModeEl.innerHTML = 'Draw More';
         }
     };
 
-    // Additional setup for brushes...
-
-    // Load existing drawing
-    fetch('/load-drawing/1/')  // Assume 1 is the drawing ID
-    .then(response => response.json())
-    .then(data => {
-        if (data.canvas_data) {
-            canvas.loadFromJSON(data.canvas_data, function() {
-                canvas.renderAll();
-                console.log("Canvas has been loaded.");
-            });
-        } else {
-            console.error('No drawing data found:', data);
-        }
-    })
-    .catch(error => console.error('Error loading the drawing:', error));
-
-    // Save drawing
-    document.getElementById('save-canvas').addEventListener('click', function() {
-        var name = document.getElementById('drawing-name').value;
-        if (!name) {
-          alert('Please enter a name for the drawing.');
-          return;
-        }
-        var json = JSON.stringify({ name: name, canvas_data: canvas.toJSON() });
-        saveDrawing(json);
+    var backgroundSelector = document.getElementById('backgroundSelector');
+    backgroundSelector.addEventListener('change', function() {
+        var selectedValue = backgroundSelector.value;
+        updateCanvasBackground(selectedValue);
     });
 
-    fetch('/list-drawings/')
-    .then(response => response.json())
-    .then(data => {
-        var select = document.getElementById('load-drawing-select');
-        data.drawings.forEach(drawing => {
-            var option = new Option(drawing.name, drawing.id);
-            select.add(option);
-        });
+    var userInputSelector = document.getElementById('userInputSelector');
+    userInputSelector.addEventListener('change', function() {
+        var selectedValue = userInputSelector.value;
+        updateUserInputMode(selectedValue);
     });
 
-    document.getElementById('load-drawing').addEventListener('click', function() {
-        var select = document.getElementById('load-drawing-select');
-        var drawingId = select.value;
-        if (drawingId) {
-            fetch(`/load-drawing/${drawingId}/`)
-            .then(response => response.json())
-            .then(data => {
-                canvas.loadFromJSON(data.canvas_data, canvas.renderAll.bind(canvas));
-            })
-            .catch(error => console.error('Error loading the drawing:', error));
-        } else {
-            alert('Please select a drawing to load.');
-        }
-    });
 });
 
-function saveDrawing(jsonData) {
-    fetch('/save-drawing/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: jsonData
-    })
-    .then(response => response.json())
-    .then(data => console.log('Success:', data))
-    .catch((error) => console.error('Error:', error));
-}
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
 // Update the background
 function updateCanvasBackground(selectedValue) {
-    var canvas = new fabric.Canvas('yourCanvasElementId');
-
     if (selectedValue === 'blank') {
+        isCartesianBackground = false;
         canvas.setBackgroundColor('#ffffff', function() {
             canvas.renderAll();
         });
+        canvas.setBackgroundImage(null, canvas.renderAll.bind(canvas));
     } else if (selectedValue === 'cartesian') {
-        canvas.setBackgroundImage('/static/img/cartesian_plane.png', function() {
-            canvas.renderAll();
-        });
+
+        isCartesianBackground = true;
+        var cartesianImg = new Image()
+        cartesianImg.src = '/static/img/cartesian_plane.png'
+
+        cartesianImg.onload = function() {
+            var fabricCartesianBackground = new fabric.Image(cartesianImg, {
+                left: 0,
+                top: 0,
+                scaleX: canvas.width / cartesianImg.width,
+                scaleY: canvas.height / cartesianImg.height,
+                originX: 'left',
+                originY: 'top',
+                erasable: false
+            });
+            canvas.setBackgroundImage(fabricCartesianBackground, canvas.renderAll.bind(canvas));
+        };
     }
-    // Can copy/paste the above block to add more conditions for other images or custom backgrounds
 }
+
+function updateUserInputMode(selectedValue) {
+    if (selectedValue === 'freedraw') {
+        if (isEraserMode === false) {
+            canvas.freeDrawingBrush.width = 1
+        }
+        // Deactivate line drawing mode
+        canvas.off('mouse:down');
+        canvas.off('mouse:up');
+    }
+    else if (selectedValue === 'typing') {
+      // Set up click to add text
+      if (isEraserMode === false) {
+        canvas.freeDrawingBrush.width = 0
+      };
+      canvas.on('mouse:up', (options) => {
+          const pointer = canvas.getPointer(options.e);
+          const text = new fabric.IText('', {
+              fontFamily: 'Arial',
+              left: pointer.x,
+              top: pointer.y,
+              fontSize: 20,
+              fill: 'black'
+          });
+
+          // Add a flag to check if the default text has been edited
+          text.defaultText = true;
+
+          // Add the text to the canvas
+          canvas.add(text);
+
+          // Automatically enter editing mode
+          text.on('selected', function() {
+              if (this.defaultText) {
+                  this.selectAll();
+              }
+          });
+
+          text.on('editing:entered', function() {
+              if (this.defaultText) {
+                  this.defaultText = false;
+                  this.text = '';
+              }
+          });
+
+          text.enterEditing(); // This will put the text in editing mode directly
+      });
+    }
+  }
+
+function undo() {
+    canvas.undo();
+}
+
+function redo() {
+    canvas.redo();
+}
+
+
+document.addEventListener('keyup', (event) => {
+    const { keyCode, ctrlKey } = event;
+    if (!ctrlKey) return;
+
+    if (keyCode === 90) { // Ctrl+Z for Undo
+        undo();
+    }
+
+    if (keyCode === 89) { // Ctrl+Y for Redo
+        redo();
+    }
+});
+
