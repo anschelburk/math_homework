@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fabric.Object.prototype.transparentCorners = false;
 
     let isEraserMode = false;
+    let isCartesianBackground = false;
     var eraserBtn = document.getElementById('eraser-toggle');
 
     eraserBtn.onclick = function() {
@@ -31,7 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var drawingOptionsEl = document.getElementById('drawing-mode-options');
     var clearEl = document.getElementById('clear-canvas');
 
-    clearEl.onclick = function() { canvas.clear() };
+    clearEl.onclick = function() {
+            canvas.clear()
+            if (isCartesianBackground) {
+                updateCanvasBackground('cartesian')
+            }
+            else if (isCartesianBackground === false) {
+                updateCanvasBackground('blank')
+            };
+        };
 
     drawingModeEl.onclick = function() {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -60,11 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update the background
 function updateCanvasBackground(selectedValue) {
     if (selectedValue === 'blank') {
+        let isCartesianBackground = false;
         canvas.setBackgroundColor('#ffffff', function() {
             canvas.renderAll();
         });
     } else if (selectedValue === 'cartesian') {
 
+        let isCartesianBackground = true;
         var cartesianImg = new Image()
         cartesianImg.src = '/static/img/cartesian_plane.png'
 
