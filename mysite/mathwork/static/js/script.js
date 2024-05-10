@@ -78,7 +78,6 @@ function updateCanvasBackground(selectedValue) {
                 originY: 'top',
                 erasable: false
             });
-
             canvas.setBackgroundImage(fabricCartesianBackground, canvas.renderAll.bind(canvas));
         };
     }
