@@ -26,7 +26,7 @@ def drawing_view(request):
     return render(request, 'drawing.html')
 
 def edit_assignment(request):
-    return render(request, 'assignment_main.html')
+    return render(request, 'edit_assignment.html')
 
 def get_widget(request):
     widget_type = request.GET.get('widget')
