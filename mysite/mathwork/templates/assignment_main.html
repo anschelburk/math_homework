@@ -1,0 +1,21 @@
+{% extends "base_site.html" %}
+{% load static %}
+
+{% block head_content %}
+<meta charset="UTF-8">
+<script src="https://unpkg.com/htmx.org"></script>
+{% endblock %}
+
+{% block body_content %}
+<h1>Homework Submission</h1>
+<select hx-get="/get-widget" hx-trigger="change" hx-target="#widgets-container" hx-swap="beforeend">
+    <option value="">Assignment Options</option>
+    <option value="text_input">Typing</option>
+    <option value="math_keyboard">Math</option>
+    <option value="drawing_canvas">Drawing</option>
+</select>
+
+<div id="widgets-container">
+    <!-- Widgets will be loaded here -->
+</div>
+{% endblock %}
