@@ -8,7 +8,7 @@
 
 {% block body_content %}
 <h1>Homework Submission</h1>
-<select hx-get="/get-widget" hx-trigger="change" hx-target="#widgets-container" hx-swap="beforeend" name="widget">
+<select id="widget-selector" name="widget">
     <option value="">Assignment Options</option>
     <option value="text_input">Typing</option>
     <option value="math_keyboard">Math</option>
@@ -18,4 +18,20 @@
 <div id="widgets-container">
     <!-- Widgets will be loaded here -->
 </div>
+
+<script>
+    document.getElementById('widget-selector').addEventListener('change', function() {
+        var widgetType = this.value;
+        if (widgetType) {
+            fetch(`/get-widget?widget=${widgetType}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('widgets-container').innerHTML = html;
+                });
+        } else {
+            document.getElementById('widgets-container').innerHTML = '';
+        }
+    });
+</script>
+
 {% endblock %}
