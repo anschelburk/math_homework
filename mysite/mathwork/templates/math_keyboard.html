@@ -1,13 +1,4 @@
-{% extends "base_site.html" %}
-
-{% block head_content %}
 {% load static %}
-<script defer src="//unpkg.com/mathlive"></script>
-{% endblock %}
-
-{% block body_content %}
 <math-field id="mathfield"></math-field>
-
 <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
 <script  type="text/javascript" src="{% static 'js/math_keyboard.js' %}" charset="UTF-8"></script>
-{% endblock %}
