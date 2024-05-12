@@ -1,4 +1,13 @@
+{% extends "edit_assignment.html" %}
 {% load static %}
+
+{% block head_content_widget %}
+<script defer src="//unpkg.com/mathlive"></script>
+{% endblock}
+
 <math-field id="mathfield"></math-field>
 <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
 <script  type="text/javascript" src="{% static 'js/math_keyboard.js' %}" charset="UTF-8"></script>
+
+{% block footer_content_widget %}
+{% endblock %}

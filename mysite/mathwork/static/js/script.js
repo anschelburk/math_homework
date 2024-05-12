@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fabric.Object.prototype.transparentCorners = false;
 
-    var eraserBtn = document.getElementById('eraser-toggle');
+    let eraserBtn = document.getElementById('eraser-toggle');
 
     eraserBtn.onclick = function() {
         isEraserMode = !isEraserMode;
