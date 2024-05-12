@@ -1,15 +1,6 @@
-{% extends "base_site.html" %}
 {% load static %}
 
-{% block head_content %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-{% endblock %}
-
-{% block body_content %}
-
-  <!-- Canvas element where drawing will occur -->
+<!-- Canvas element where drawing will occur -->
   <canvas id="c" width="800" height="600" style="border:1px solid #ccc"></canvas>
 
   <!-- User instructions -->
@@ -39,11 +30,3 @@
     <button id="eraser-toggle">Eraser</button>
     <button id="drawing-mode">Stop Drawing</button>
   </div>
-
-{% endblock %}
-
-{% block footer_content %}
-  <script type="text/javascript" src="{% static 'js/fabric.min.js' %}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fabric-history"></script>
-  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-{% endblock %}

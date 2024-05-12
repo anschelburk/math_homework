@@ -3,6 +3,7 @@
 
 {% block head_content %}
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/htmx.org"></script>
 <script defer src="//unpkg.com/mathlive"></script>
 {% endblock %}
@@ -35,4 +36,10 @@
     });
 </script>
 
+{% endblock %}
+
+{% block footer_content %}
+  <script type="text/javascript" src="{% static 'js/fabric.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fabric-history"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
