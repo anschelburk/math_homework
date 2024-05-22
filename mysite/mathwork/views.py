@@ -10,7 +10,7 @@ from .models import Drawing
 
 
 def index(request):
-    return HttpResponse("Welcome to Math Homework - math work made easy!")
+    return render(request, 'home.html')
 
 def assignment_view(request):
     if request.method == 'POST':
