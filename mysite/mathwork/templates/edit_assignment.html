@@ -1,0 +1,98 @@
+{% extends "base_site.html" %}
+{% load static %}
+
+{% block head_content %}
+<meta charset="UTF-8">
+<script id="dynamic-head-scripts">
+    // Empty script for now, will be filled dynamically
+</script>
+<script src="https://unpkg.com/htmx.org"></script>
+{% endblock %}
+
+{% block body_content %}
+<h1>Homework Submission</h1>
+<select id="widget-selector" name="widget">
+    <option value="">Assignment Options</option>
+    <option value="text_input">Typing</option>
+    <option value="math_keyboard">Math</option>
+    <option value="drawing_canvas">Drawing</option>
+</select>
+
+<div id="widgets-container">
+    <!-- Widgets will be loaded here -->
+</div>
+
+<script>
+    document.getElementById('widget-selector').addEventListener('change', function() {
+        var widgetType = this.value;
+        if (widgetType) {
+            fetch(`/get-widget?widget=${widgetType}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('widgets-container').innerHTML = html;
+                    updateHeadScripts(widgetType);
+                    updateBottomScripts(widgetType);
+                });
+        } else {
+            document.getElementById('widgets-container').innerHTML = '';
+            clearHeadScripts();
+            clearBottomScripts();
+        }
+    });
+
+    function clearHeadScripts() {
+        document.getElementById('dynamic-head-scripts').innerHTML = '';
+    }
+
+    function updateHeadScripts(widgetType) {
+        clearHeadScripts(); // Clear previous scripts
+
+        if (widgetType === 'math_keyboard') {
+            var script = document.createElement('script');
+            script.defer = true;
+            script.src = "//unpkg.com/mathlive";
+            document.getElementById('dynamic-head-scripts').appendChild(script);
+        } else if (widgetType === 'drawing_canvas') {
+            var meta = document.createElement('meta');
+            meta.name = "viewport";
+            meta.content = "width=device-width, initial-scale=1.0";
+            document.getElementById('dynamic-head-scripts').appendChild(meta);
+        }
+        // No action needed for other options
+    }
+
+    function clearBottomScripts() {
+        var bottomScripts = document.querySelectorAll('#dynamic-bottom-scripts script');
+        bottomScripts.forEach(function(script) {
+            script.parentNode.removeChild(script);
+        });
+    }
+
+    function updateBottomScripts(widgetType) {
+        clearBottomScripts(); // Clear previous bottom scripts
+
+        if (widgetType === 'drawing_canvas') {
+            var fabricScript = document.createElement('script');
+            fabricScript.type = 'text/javascript';
+            fabricScript.src = "{% static 'js/fabric.min.js' %}";
+            document.getElementById('dynamic-bottom-scripts').appendChild(fabricScript);
+
+            var fabricHistoryScript = document.createElement('script');
+            fabricHistoryScript.src = "https://cdn.jsdelivr.net/npm/fabric-history";
+            document.getElementById('dynamic-bottom-scripts').appendChild(fabricHistoryScript);
+
+            var customScript = document.createElement('script');
+            customScript.type = 'text/javascript';
+            customScript.src = "{% static 'js/script.js' %}";
+            document.getElementById('dynamic-bottom-scripts').appendChild(customScript);
+        }
+        // No action needed for other options
+    }
+</script>
+
+{% endblock %}
+
+{% block footer_content %}
+<!-- Dynamic bottom scripts will be placed here -->
+<div id="dynamic-bottom-scripts"></div>
+{% endblock %}

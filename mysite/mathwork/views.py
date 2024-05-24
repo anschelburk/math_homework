@@ -3,13 +3,14 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.template import loader
 
 from .forms import MathAssignmentForm
 from .models import Drawing
 
 
 def index(request):
-    return HttpResponse("Welcome to Math Homework - math work made easy!")
+    return render(request, 'home.html')
 
 def assignment_view(request):
     if request.method == 'POST':
@@ -23,6 +24,21 @@ def assignment_view(request):
 
 def drawing_view(request):
     return render(request, 'drawing.html')
+
+def edit_assignment(request):
+    return render(request, 'edit_assignment.html')
+
+def get_widget(request):
+    widget_type = request.GET.get('widget')
+    if widget_type == "text_input":
+        template = loader.get_template('text_input.html')
+    elif widget_type == "math_keyboard":
+        template = loader.get_template('math_keyboard.html')
+    elif widget_type == "drawing_canvas":
+        template = loader.get_template('drawing.html')
+    else:
+        return HttpResponse('')  # No widget selected or invalid option
+    return HttpResponse(template.render({}, request))
 
 def math_keyboard(request):
     return render(request, 'math_keyboard.html')
