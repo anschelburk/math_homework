@@ -40,6 +40,17 @@
     <math-field id="mathfield_user_input"></math-field>
     <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
     <script src="{% static 'js/math_keyboard.js' %}"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const mathField = document.getElementById('mathfield_user_input');
+        const hiddenInput = document.getElementById('math_input');
+
+        mathField.addEventListener('input', function() {
+          hiddenInput.value = mathField.getValue('latex');
+        });
+      });
+    </script>
     
     <input type="hidden" name="math_input" id="math_input">
     <button type="submit">Save Assignment</button>
