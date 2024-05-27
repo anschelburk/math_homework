@@ -21,7 +21,8 @@ def assignment_view(request):
             assignment_date=timezone.now(),
             teacher_name=request.POST['teacher_name'],
             class_name=request.POST['class_name'],
-            problems=request.POST['math_input'],
+            math_input=request.POST['math_input'],
+            # canvas_data=request.POST('canvas_data'),
         )
     return render(request, 'assignment_form.html')
 
