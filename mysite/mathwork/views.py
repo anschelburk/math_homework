@@ -22,7 +22,7 @@ def assignment_view(request):
             teacher_name=request.POST['teacher_name'],
             class_name=request.POST['class_name'],
             math_input=request.POST['math_input'],
-            canvas_data=request.POST('canvas_data'),
+            canvas_data=request.POST['canvas_data'],
         )
     return render(request, 'assignment_form.html')
 
