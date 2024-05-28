@@ -4,9 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.template import loader
+from django.utils import timezone
 
 from .forms import MathAssignmentForm
-from .models import Drawing
+from .models import Drawing, MathAssignment
 
 
 def index(request):
@@ -14,13 +15,16 @@ def index(request):
 
 def assignment_view(request):
     if request.method == 'POST':
-        form = MathAssignmentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("Your assignment was submitted successfully.")
-    else:
-        form = MathAssignmentForm()
-    return render(request, 'assignment_form.html', {'form': form})
+        MathAssignment.objects.create(
+            assignment_title=request.POST['assignment_title'],
+            student_name=request.POST['student_name'],
+            assignment_date=timezone.now(),
+            teacher_name=request.POST['teacher_name'],
+            class_name=request.POST['class_name'],
+            math_input=request.POST['math_input'],
+            canvas_data=request.POST('canvas_data'),
+        )
+    return render(request, 'assignment_form.html')
 
 def drawing_view(request):
     return render(request, 'drawing.html')

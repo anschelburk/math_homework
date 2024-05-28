@@ -7,7 +7,8 @@ class MathAssignment(models.Model):
     assignment_date = models.DateField(blank=True, null=True)
     teacher_name = models.CharField(max_length=255, blank=True)
     class_name = models.CharField(max_length=255, blank=True)
-    problems = models.TextField(blank=True)
+    math_input = models.TextField(blank=True)
+    canvas_data = models.TextField(blank=True)
     # problems_hidden = JSONField
 
     def __str__(self):

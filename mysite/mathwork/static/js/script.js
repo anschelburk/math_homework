@@ -7,9 +7,15 @@ document.addEventListener('DOMContentLoaded', function() {
         isDrawingMode: true
     });
 
+    document.getElementById('save').addEventListener('click', function() {
+        const canvasJson = JSON.stringify(canvas.toJSON());
+        document.getElementById('canvas_data').value = canvasJson;
+        document.getElementById('canvasForm').submit();
+    });
+
     fabric.Object.prototype.transparentCorners = false;
 
-    let eraserBtn = document.getElementById('eraser-toggle');
+    var eraserBtn = document.getElementById('eraser-toggle');
 
     eraserBtn.onclick = function() {
         isEraserMode = !isEraserMode;
