@@ -24,6 +24,9 @@ def assignment_view(request):
             math_input=request.POST['math_input'],
             canvas_data=request.POST['canvas_data'],
         )
+        # return redirect(request, 'new_page.html')
+    # else:
+    # Indent next line
     return render(request, 'assignment_form.html')
 
 def drawing_view(request):

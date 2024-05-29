@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block body_content %}
-  <form method="post">
+  <form id="combinedForm" method="post" action="">
     {% csrf_token %}
     <label>Assignment title:</label>
     <input name="assignment_title" id="assignment_title">
@@ -52,20 +52,14 @@
       });
     </script>
     
-    <input type="hidden" name="math_input" id="math_input">
-
+    
     <!-- Caanvas -->
-
+    
     <!-- Canvas element where drawing will occur -->
     <canvas id="c" width="800" height="600" style="border:1px solid #ccc"></canvas>
-    <script>
-
-    </script>
-    <form id="canvasForm" method="POST" action="/save-canvas/">
-      {% csrf_token %}
-      <input type="hidden" name="canvas_data" id="canvas_data">
-    </form>
-
+    <input type="hidden" name="math_input" id="math_input">
+    <input type="hidden" name="canvas_data" id="canvas_data">
+    
     <!-- User instructions -->
     <div id="user-instructions">
         <br>In drawing mode, press and hold the SHIFT key to draw lines.

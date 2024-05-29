@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         preventDefault(event)
         const canvasJson = JSON.stringify(canvas.toJSON());
         document.getElementById('canvas_data').value = canvasJson;
-        document.getElementById('canvasForm').submit();
+        document.getElementById('combinedForm').submit();
     });
 
     fabric.Object.prototype.transparentCorners = false;
