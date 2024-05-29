@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('save').addEventListener('click', function(event) {
-        preventDefault(event)
+        event.preventDefault()
         const canvasJson = JSON.stringify(canvas.toJSON());
         document.getElementById('canvas_data').value = canvasJson;
         document.getElementById('combinedForm').submit();
@@ -157,11 +157,6 @@ function undo() {
 
 function redo() {
     canvas.redo();
-}
-
-function preventDefault(inputEvent) {
-    inputEvent.preventDefault();
-    console.log('Default click action prevented.');
 }
 
 document.addEventListener('keyup', (event) => {
