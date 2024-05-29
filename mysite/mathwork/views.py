@@ -1,18 +1,19 @@
-import json
-
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import MathAssignmentForm
 from .models import Drawing, MathAssignment
 
+import json
 
 def index(request):
     return render(request, 'home.html')
 
+@login_required
 def assignment_view(request):
     if request.method == 'POST':
         MathAssignment.objects.create(
