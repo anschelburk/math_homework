@@ -1,9 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const mathFieldElement = document.getElementById('mathfield');
-    mathFieldElement.addEventListener('input', () => {
-        console.log(mathFieldElement.value); // This will log the LaTeX content
-    });
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     const mathFieldElement = document.getElementById('mathfield');
+//     mathFieldElement.addEventListener('input', () => {
+//         console.log(mathFieldElement.value); // This will log the LaTeX content
+//     });
+// });
 document.querySelector('math-field').
 addEventListener('focus', () => {
     mathVirtualKeyboard.layouts = [

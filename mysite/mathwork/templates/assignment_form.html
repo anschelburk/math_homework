@@ -16,14 +16,10 @@
   rel="stylesheet"
   type="text/css"
 />
-<link
-  href="{% static 'js/math_keyboard.js' %}"
-  type="text/javascript"
-/>
 {% endblock %}
 
 {% block body_content %}
-  <form method="post">
+  <form id="combinedForm" method="post" action="">
     {% csrf_token %}
     <label>Assignment title:</label>
     <input name="assignment_title" id="assignment_title">
@@ -56,13 +52,14 @@
       });
     </script>
     
-    <input type="hidden" name="math_input" id="math_input">
-
+    
     <!-- Caanvas -->
-
+    
     <!-- Canvas element where drawing will occur -->
     <canvas id="c" width="800" height="600" style="border:1px solid #ccc"></canvas>
-
+    <input type="hidden" name="math_input" id="math_input">
+    <input type="hidden" name="canvas_data" id="canvas_data">
+    
     <!-- User instructions -->
     <div id="user-instructions">
         <br>In drawing mode, press and hold the SHIFT key to draw lines.
@@ -73,9 +70,9 @@
 
     <!-- Controls for drawing options -->
     <div id="drawing-features-basic">
-      <button id="clear-canvas">Clear</button>
-      <button onclick="undo()">Undo</button>
-      <button onclick="redo()">Redo</button>
+      <span id="clear-canvas">Clear</span>
+      <span onclick="undo()">Undo</span>
+      <span onclick="redo()">Redo</span>
 
       <select id="backgroundSelector">
         <option value="blank">Blank Drawing</option>
@@ -86,13 +83,13 @@
         <option value="freedraw">Draw</option>
         <option value="typing">Type</option>
       </select>
-      <button id="eraser-toggle">Eraser</button>
-      <button id="drawing-mode">Stop Drawing</button>
+      <span id="eraser-toggle">Eraser</span>
+      <span id="drawing-mode">Stop Drawing</span>
     </div>
 
     <!-- Submit Button -->
 
-    <button type="submit">Save Assignment</button>
+    <button type="submit" id="save">Save Assignment</button>
 
   </form>
 {% endblock %}
