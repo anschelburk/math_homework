@@ -70,22 +70,34 @@
 
     <!-- Controls for drawing options -->
     <div id="drawing-features-basic">
-      <span id="clear-canvas">Clear</span>
-      <span onclick="undo()">Undo</span>
-      <span onclick="redo()">Redo</span>
+      <span class="button-like" id="clear-canvas">Clear</span>
+      <span class="button-like" onclick="undo()">Undo</span>
+      <span class="button-like" onclick="redo()">Redo</span>
 
-      <select id="backgroundSelector">
+      <select class="button-like" id="backgroundSelector">
         <option value="blank">Blank Drawing</option>
         <option value="cartesian">X-Y Graph</option>
         <!-- Add more options as needed -->
       </select>
-      <select id="userInputSelector">
+      <select class="button-like" id="userInputSelector">
         <option value="freedraw">Draw</option>
         <option value="typing">Type</option>
       </select>
-      <span id="eraser-toggle">Eraser</span>
-      <span id="drawing-mode">Stop Drawing</span>
+      <span class="button-like" id="eraser-toggle">Eraser</span>
+      <span class="button-like" id="drawing-mode">Stop Drawing</span>
     </div>
+    <style>
+      .button-like {
+          display: inline-block;
+          padding: 5px 5px;
+          margin: 1px;
+          background-color: #525355;
+          color: white;
+          cursor: pointer;
+          border-radius: 5px;
+          text-align: center;
+      }
+    </style>
 
     <!-- Submit Button -->
 
