@@ -9,6 +9,7 @@ urlpatterns = [
     path("editassignment/", views.edit_assignment, name="edit_assignment"),
     path("get-widget/", views.get_widget, name="get_widget"),
     path('save-drawing/', views.save_drawing, name='save_drawing'),
+    path('savedassignments/', views.saved_assignments, name='saved_assignments'),
     path('load-drawing/<int:drawing_id>/', views.load_drawing, name='load_drawing'),
     path('list-drawings/', views.list_drawings, name='list_drawings'),
 ]

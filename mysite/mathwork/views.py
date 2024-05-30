@@ -30,6 +30,11 @@ def assignment_view(request):
     # Indent next line
     return render(request, 'assignment_form.html')
 
+@login_required
+def saved_assignments(request):
+    assignments = MathAssignment.objects.filter(user=request.user)
+    return render(request, 'saved_assignments.html', {'assignments': assignments})
+
 def drawing_view(request):
     return render(request, 'drawing.html')
 
