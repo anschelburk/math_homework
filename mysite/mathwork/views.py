@@ -24,6 +24,7 @@ def assignment_view(request):
             class_name=request.POST['class_name'],
             math_input=request.POST['math_input'],
             canvas_data=request.POST['canvas_data'],
+            user=request.user,
         )
         # return redirect(request, 'new_page.html')
     # else:

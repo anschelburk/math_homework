@@ -1,7 +1,8 @@
-# from django.contrib.postgres.fields import JSONField
+from django.contrib.auth.models import User
 from django.db import models
 
 class MathAssignment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     assignment_title = models.CharField(max_length=500, blank=False)
     student_name = models.CharField(max_length=255)
     assignment_date = models.DateField(blank=True, null=True)
