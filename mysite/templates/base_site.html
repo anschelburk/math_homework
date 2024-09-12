@@ -6,6 +6,16 @@
   </head>
 
 <body>
+  <p>Copyright © Anschel Burk 2024. All rights reserved.</p>
+  {% if user.is_authenticated %}
+    <p>Hi {{ user.username }}! Welcome to Math Homework - math work made easy.</p>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Log Out</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Log In</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url 'signup' %}">Create an Account</a></p>
+  {% endif %}
   {% block body_content %}{% endblock %}
   {% block footer_content %}{% endblock %}
 </body>

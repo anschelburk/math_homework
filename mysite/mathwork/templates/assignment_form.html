@@ -35,9 +35,11 @@
     <label>Class name:</label>
     <input name="class_name" id="class_name">
 
-    <!-- Math Keyboard -->
+    <br><br>
 
-    <math-field id="mathfield_user_input"></math-field>
+    <!-- Math Keyboard -->
+    <p><H2>Type a Math Problem:</H2></p>
+    <div style="width: 800px;"><math-field id="mathfield_user_input"></math-field></div>
     <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
     <script src="{% static 'js/math_keyboard.js' %}"></script>
 
@@ -56,6 +58,7 @@
     <!-- Caanvas -->
     
     <!-- Canvas element where drawing will occur -->
+    <p><H2>Draw a Picture:</H2></p>
     <canvas id="c" width="800" height="600" style="border:1px solid #ccc"></canvas>
     <input type="hidden" name="math_input" id="math_input">
     <input type="hidden" name="canvas_data" id="canvas_data">

@@ -1,14 +1,5 @@
 {% extends "base_site.html" %}
 
 {% block body_content %}
-{% if user.is_authenticated %}
-<p>Hi {{ user.username }}! Welcome to Math Homework - math work made easy.</p>
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Log Out</button>
-</form>
-{% else %}
-<p>Welcome to Math Homework - math work made easy. Please log in to begin.</p>
-<a href="{% url 'login' %}">Log In</a>
-{% endif %}
+<p>Click <a href="{% url 'math_assignmment' %}">here</a> to begin a new assignment.</p>
 {% endblock %}
