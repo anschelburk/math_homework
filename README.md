@@ -176,7 +176,7 @@ DATABASE_URL=postgres://john:defaultpass@localhost:5432/sampledb
 
 #### 4c. Configuring the `ALLOWED_HOSTS` environment variable.
 
-Django uses the `ALLOWED_HOSTS` setting as a security measure to clarify which host/domain names that this Django project can serve.
+Django uses the `ALLOWED_HOSTS` setting as a security measure to clarify which host/domain names that this Django project can serve. (For more information on this setting, please see [Django's documentation](https://docs.djangoproject.com/en/5.1/ref/settings/#allowed-hosts).)
 
 This setting is incredibly easy to configure. Simply copy the **HOST** you used in your database URL in [**Step 4b**](#4b-configuring-the-database_url-environment-variable), and paste it in your local repo's `.env` file.
 
