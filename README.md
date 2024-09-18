@@ -208,7 +208,7 @@ DEBUG=False
 
 If at any point you would like to enable debug mode, simply toggle that value to `True`.
 
-**Congratulations! Now that you've configured the environment variables, the last two steps are quick and easy.**
+**Congratulations! Now that you've configured the environment variables, you're nearly done. The last two steps are quick and easy.**
 
 #### 5. Migrate database models to your PostgreSQL database.
 
