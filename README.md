@@ -212,7 +212,7 @@ If at any point you would like to enable debug mode, simply toggle that value to
 
 #### 5. Migrate database models to your PostgreSQL database.
 
-Before you can use your PostgreSQL database, you need to configure it by migrating the appropriate database models. Luckily, Django makes this very easy to do!
+Before you can use your PostgreSQL database, you need to configure it by migrating the appropriate database models. Django makes this very easy to do.
 
 From the project directory, navigate to the `mysite` directory, and then use the following steps to configure your PostgreSQL database:
 
