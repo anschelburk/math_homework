@@ -186,10 +186,12 @@ For example, if the **HOST** from your database URL was `localhost`, then the `A
 ALLOWED_HOSTS=localhost
 ```
 
-*Optional: If you would like to allow multiple hosts, simply add them to the `ALLOWED_HOSTS` variable in your local repo's `.env` file. For example:*
+*Optional: If you would like to allow multiple hosts, simply add them as a list to the `ALLOWED_HOSTS` variable in your local repo's `.env` file. For example, all three of the following would be valid:*
 
 ```
 ALLOWED_HOSTS=[localhost, 127.0.0.1]
+ALLOWED_HOSTS=(localhost, 127.0.0.1)
+ALLOWED_HOSTS=localhost, 127.0.0.1
 ```
 
 #### 4d. Configuring the `DEBUG` environment variable.
