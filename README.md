@@ -93,9 +93,9 @@ Django uses this setting to provide cryptographic signing. It should be set to a
 
 Here's how to set this up.
 
-- **Open a terminal window in this project's directory. Make sure the virtual environment is running, and all this project's dependencies have been installed. (If you haven't done these things yet, please see [Step 2](#2-create-a-virtual-environment-and-install-this-projects-dependencies).)**
+**Open a terminal window in this project's directory. Make sure the virtual environment is running, and all this project's dependencies have been installed. (If you haven't done these things yet, please see [Step 2](#2-create-a-virtual-environment-and-install-this-projects-dependencies).)**
 
-- **In that terminal window, activate the Python interactive console:**
+**In that terminal window, activate the Python interactive console:**
 
 Windows (PowerShell):
 ```
@@ -107,7 +107,7 @@ Linux/MacOS:
 python3
 ```
 
-- **Generate a new Django secret key using the following terminal commands:**
+**Generate a new Django secret key using the following terminal commands:**
 
 Python Interactive Console (for all operating systems):
 ```
@@ -115,7 +115,7 @@ from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
 
-- **Copy that secret key, and paste it as a string next to `SECRET_KEY =` in your local `.env` file.**
+**Copy that secret key, and paste it as a string next to `SECRET_KEY =` in your local `.env` file.**
 
 For example, if Django generates the following secret key for you:
 
@@ -129,7 +129,7 @@ Then the `SECRET_KEY` line of your `.env` file should look like this:
 SECRET_KEY='abcdefghijklmnop1234567890'
 ```
 
-- **Finally, exit the Python interactive console using the following command.**
+**Finally, exit the Python interactive console using the following command.**
 
 Python Interactive Console (for all operating systems):
 ```
