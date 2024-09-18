@@ -4,7 +4,7 @@ Copyright © 2024 Anschel Burk. All rights not explicitly granted in [this proje
 
 ## 1. Description
 
-A visual, intuitive interface to type and draw high school math problems on a computer. Designed to be accessible and simple to use for all users, neurotypical or neurodivergent.
+A visual, intuitive interface to type and draw high school math problems on a computer. Designed to be simple and intuitive for all users, neurotypical or neurodivergent.
 
 This app is powered by [Django](https://www.djangoproject.com/), and uses a [PostgreSQL](https://www.postgresql.org/) database. Math Keyboard feature powered by [CortexJS](https://cortexjs.io/mathlive/), drawing feature powered by [Fabric.js](http://fabricjs.com/docs/). Originally developed as a capstone project in the [Pybites Python Developer Mindset (PDM) Program](https://pybit.es/catalogue/the-pdm-program/), this project is under active development.
 
