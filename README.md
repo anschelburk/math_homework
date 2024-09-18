@@ -109,7 +109,7 @@ python3
 
 - **Generate a new Django secret key using the following terminal commands:**
 
-All operating systems:
+Python Interactive Console (for all operating systems):
 ```
 from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
@@ -131,7 +131,7 @@ SECRET_KEY='abcdefghijklmnop1234567890'
 
 - **Finally, exit the Python interactive console using the following command.**
 
-All operating systems:
+Python Interactive Console (for all operating systems):
 ```
 quit()
 ```
