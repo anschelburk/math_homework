@@ -27,7 +27,7 @@ See this project's [LICENSE.txt](LICENSE.txt) file for the specific language gov
 
 - **Visual Math Keyboard:** Write math problems using a visual, intuitive keyboard designed specifically for middle & high school math classes. Powered by [CortexJS](https://cortexjs.io/mathlive/).
 - **Graphing & Drawing Tool:** Draw graphs and pictures with ease using the included drawing tool. Powered by [Fabric.js](http://fabricjs.com/docs/).
-- **User-Friendly Interface:** This project's interface is designed to be with a clean, simple, and intuitive, making it easy to focus on math problems without getting distracted by complicated menus or unnecessary features.
+- **User-Friendly Interface:** This project's interface is designed to be simple, and intuitive, making it easy to focus on math problems without getting distracted by complicated menus or unnecessary features.
 
 ## 4. Installation & Dependencies
 
