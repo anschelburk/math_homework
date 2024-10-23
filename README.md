@@ -1,10 +1,9 @@
 # Math Homework
 
 Copyright © 2024 Anschel Burk. All rights not explicitly granted in [this project's license](LICENSE.txt) reserved.
+---
 
 ![Math Homework](https://github.com/user-attachments/assets/1471e9fb-a3ba-4923-a806-ca786a5c5d1d)
-
----
 
 ## 1. Description
 
