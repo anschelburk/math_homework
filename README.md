@@ -4,6 +4,8 @@ Copyright © 2024 Anschel Burk. All rights not explicitly granted in [this proje
 
 ![Math Homework](https://github.com/user-attachments/assets/1471e9fb-a3ba-4923-a806-ca786a5c5d1d)
 
+---
+
 ## 1. Description
 
 A visual, intuitive interface to type and draw high school math problems on a computer. Designed to be simple and intuitive for all users, neurotypical or neurodivergent.
